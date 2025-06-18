@@ -10,15 +10,15 @@ def index_inner(request):
 # def index_outer(request):
 #     return render(request,'index_outer.html')
 
-# def register(request):
-#     if request.method == "POST":
-#         fullname = request.POST.get("fullname")
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-#         confirm_password = request.POST.get("confirm_password")
-#         return HttpResponse(f"Registered: {fullname} with email {email}")
+def register(request):
+    if request.method == "POST":
+        fullname = request.POST.get("fullname")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+        return HttpResponse(f"Registered: {fullname} with email {email}")
     
-#     return render(request, 'dashboard/register.html')
+    return render(request, 'dashboard/register.html')
 
 
 
@@ -41,14 +41,14 @@ def register(request):
 
 
         if password_ != confirm_password_:
-            return render(request, 'register.html')
+            return render(request, 'dashboard/register.html')
         
-        user = UserRegistration.objects.create(
+        UserRegistration.objects.create(
             fullname=fullname_,
             email=email_,
             password=password_  
         )
-        user.save()
+        UserRegistration.save()
         return render(request, 'dashboard/register.html')
 
     return render(request, 'dashboard/login.html')
@@ -59,11 +59,11 @@ from django.shortcuts import render, redirect
 
 def login(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email_ = request.POST.get('email')
+        password_ = request.POST.get('password')
 
     return render(request, 'dashboard/login.html')
 
 def index_inner_view(request):
-    return render(request, 'index_inner.html')
+    return render(request, 'dashboard/index_inner.html')
 
