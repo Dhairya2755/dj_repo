@@ -1,29 +1,15 @@
+from django.shortcuts import render,redirect
 from .models import UserRegistration
 import re
-from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
-def index_inner(request):
-    return render(request,'dashboard/index_inner.html')
+
+# def index_inner(request):
+#     return render(request,'dashboard/index_inner.html')
 
 # def index_outer(request):
 #     return render(request,'index_outer.html')
-
-def register(request):
-    if request.method == "POST":
-        fullname = request.POST.get("fullname")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        confirm_password = request.POST.get("confirm_password")
-        return HttpResponse(f"Registered: {fullname} with email {email}")
-    
-    return render(request, 'dashboard/register.html')
-
-
-
 def validate_password(password):
-  
     if len(password) < 8:
         return "Password must be at least 8 characters long."
     if not re.search(r"\d", password):
@@ -32,38 +18,45 @@ def validate_password(password):
         return "Password must contain at least one special character."
     return None
 
+# Register View
 def register(request):
     if request.method == "POST":
-        fullname_ = request.POST.get("fullname")
-        email_ = request.POST.get("email")
-        password_ = request.POST.get("password")
-        confirm_password_ = request.POST.get("confirm_password")
+        fullname = request.POST.get("fullname")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
 
+        error = validate_password(password)
+        if error:
+            return render(request, 'dashboard/register.html', {"error": error})
 
-        if password_ != confirm_password_:
-            return render(request, 'dashboard/register.html')
-        
+        if password != confirm_password:
+            return render(request, 'dashboard/register.html', {"error": "Passwords do not match."})
+
         UserRegistration.objects.create(
-            fullname=fullname_,
-            email=email_,
-            password=password_  
+            fullname=fullname,
+            email=email,
+            password=password
         )
-        UserRegistration.save()
-        return render(request, 'dashboard/register.html')
+        return redirect('login')  # Go to login after registration
+
+    return render(request, 'dashboard/register.html')
+
+# Login View
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Simple database check
+        user = UserRegistration.objects.filter(email=username, password=password).first()
+        if user:
+            return redirect('dashboard')
+        else:
+            return render(request, 'dashboard/login.html', {'error': 'Invalid credentials'})
 
     return render(request, 'dashboard/login.html')
 
-# myapp/views.py
-
-from django.shortcuts import render, redirect
-
-def login(request):
-    if request.method == 'POST':
-        email_ = request.POST.get('email')
-        password_ = request.POST.get('password')
-
-    return render(request, 'dashboard/login.html')
-
-def index_inner_view(request):
+# Dashboard
+def index_inner(request):
     return render(request, 'dashboard/index_inner.html')
-
