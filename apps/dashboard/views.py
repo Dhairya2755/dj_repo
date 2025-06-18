@@ -60,3 +60,8 @@ def login_view(request):
 # Dashboard
 def index_inner(request):
     return render(request, 'dashboard/index_inner.html')
+
+#logout
+def logout(request):
+    return redirect(request,'dashboard/register.html')
+
