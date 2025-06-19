@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Employee Login</title>
+  <title>Employee Verification</title>
   {% load static %}
   <style>
     body {
@@ -56,17 +56,22 @@
   </style>
 </head>
 <body>
+
   <div class="login-box">
     {% if error %}
       <div class="alert">{{ error }}</div>
     {% endif %}
-    <form method="POST" action="{% url 'emplogin' %}">
+
+    <form method="POST">
       {% csrf_token %}
-      <h2>Employee-Login</h2>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
+      <h2>Employee Verification</h2>
+
+      <!-- Corrected input name -->
+      <input type="email" name="email" placeholder="Enter email" required>
+      
+      <button type="submit">Verify</button>
     </form>
   </div>
+
 </body>
 </html>

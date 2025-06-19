@@ -1,10 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import UserRegistration
 import re
-from .helpers import *
-from django.core.mail import send_mail
-from django.conf import settings
-import random
+
 # Create your views here.
 
 # def index_inner(request):
@@ -61,16 +58,46 @@ def validate_password(password):
 #     return render(request, 'dashboard/login.html')
 
 # Dashboard
+# def index_inner(request):
+#     return render(request, 'dashboard/index_inner.html')
+
+# #logout
+# def logout(request):
+#     # del request.session['']
+#     #return redirect(request,'dashboard/register.html')
+#     #return redirect(request,'dashboard/login.html')
+#     return redirect ('login')
+
+# def employeelogin(request):
+#     return render(request, 'dashboard/emplogin.html')
+
+# def verification(request):
+#     return render(request, 'dashboard/register.html')
+
+def verification(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        user = UserRegistration.objects.filter(email=email).first()
+        if user:
+            return redirect('emplogin')
+        else:
+            return render(request, 'dashboard/verification.html', {"error": "Email not registered."})
+    return render(request, 'dashboard/verification.html')
+
+def employeelogin(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = UserRegistration.objects.filter(email=email, password=password).first()
+        if user:
+            return redirect('index_inner')
+        else:
+            return render(request, 'dashboard/emplogin.html', {'error': 'Invalid credentials'})
+    return render(request, 'dashboard/emplogin.html')
+
 def index_inner(request):
     return render(request, 'dashboard/index_inner.html')
 
-#logout
 def logout(request):
-    # del request.session['']
-    #return redirect(request,'dashboard/register.html')
-    #return redirect(request,'dashboard/login.html')
-    return redirect ('login')
-
-def employeelogin(request):
-    return render(request, 'dashboard/emplogin.html')
-
+    return redirect('emplogin')
