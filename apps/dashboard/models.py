@@ -3,14 +3,15 @@ import uuid
 # Create your models here.
 
 
+
 class BaseClass(models.Model):
-    id = models.UUIDField(primary_key=True, blank=False, null=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
-        
+
 class UserRegistration(BaseClass):
     name = models.CharField(max_length=100,blank=False,null=False)
     email = models.EmailField(unique=True,blank=False,null=False)
