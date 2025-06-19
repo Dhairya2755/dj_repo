@@ -23,7 +23,7 @@
     
   <div class="container-fluid">
     
-    <a class="navbar-brand" href="#">GFL</a>
+    <a class="navbar-brand" href="#">NAVBAR</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -119,8 +119,11 @@
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
-        <a href="{% url 'logout' %}"><button class="btn btn-danger">Logout</button></a>
-      </form>
+        <!-- <form action="{% url 'register' %}" method="post">
+        <button type="submit" class="btn btn-danger">Logout</button>
+</form>  -->
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
     </div>
   </div>
 </nav>

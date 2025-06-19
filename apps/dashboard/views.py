@@ -45,13 +45,13 @@ def register(request):
 # Login View
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
         # Simple database check
-        user = UserRegistration.objects.filter(email=username, password=password).first()
+        user = UserRegistration.objects.filter(email=email, password=password).first()
         if user:
-            return redirect('dashboard')
+            return redirect('index_inner')
         else:
             return render(request, 'dashboard/login.html', {'error': 'Invalid credentials'})
 
@@ -63,5 +63,7 @@ def index_inner(request):
 
 #logout
 def logout(request):
-    return redirect(request,'dashboard/register.html')
-
+    # del request.session['']
+    #return redirect(request,'dashboard/register.html')
+    #return redirect(request,'dashboard/login.html')
+    return redirect ('login')

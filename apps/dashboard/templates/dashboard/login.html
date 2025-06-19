@@ -2,135 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  
   <title>Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Inline CSS -->
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #eee;
-    }
-
-    .gradient-custom-2 {
-      background: #fccb90;
-      background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-      background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    }
-
-    .gradient-form {
-      height: auto;
-    }
-
-    @media (min-width: 768px) {
-      .gradient-form {
-        height: 100vh !important;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .gradient-custom-2 {
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
-      }
-    }
-
-    .card {
-      border-radius: 1rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .form-control {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      width: 100%;
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      color: #fff;
-    }
-
-    .btn-outline-danger {
-      color: #dc3545;
-      border: 1px solid #dc3545;
-      background-color: transparent;
-    }
-
-    .btn-outline-danger:hover {
-      background-color: #dc3545;
-      color: #fff;
-    }
-  </style>
 </head>
-<body>
-  <section class="gradient-form" style="background-color: #eee;">
-    <div class="container py-5 h-100" style="padding: 3rem 1rem;">
-      <div class="row d-flex justify-content-center align-items-center h-100" style="display: flex; align-items: center; justify-content: center;">
-        <div class="col-xl-10">
-          <div class="card rounded-3 text-black">
-            <div class="row g-0">
-              <div class="col-lg-6" style="padding: 2rem;">
-                <div class="card-body p-md-5 mx-md-4">
 
-                  <div class="text-center">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                      style="width: 185px;" alt="logo">
-                    <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
-                  </div>
+<body style="margin:0; font-family: Arial, sans-serif;    background: linear-gradient(to right, #0f3d3e, #467373,#d2e8e3);height:100vh; display:flex; justify-content:center; align-items:center;">
 
-                  <form method="POST" action="" >
-                    {% csrf_token %}
-                    <p>Please login to your account</p>
+  <div style="background-color:#fff; padding:2rem; border-radius:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:300px;">
+       {% if error %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+<form method="POST" action="" style="display:flex; flex-direction:column;">
+  {% csrf_token %}
 
-                    <div class="form-outline mb-4" style="margin-bottom: 1.5rem;">
-                      <input type="email" name="username" class="form-control"
-                        placeholder="Phone number or email address" required>
-                      <label class="form-label" style="display: block; margin-top: 0.5rem;">Username</label>
-                    </div>
-
-                    <div class="form-outline mb-4" style="margin-bottom: 1.5rem;">
-                      <input type="password" name="password" class="form-control" required>
-                      <label class="form-label" style="display: block; margin-top: 0.5rem;">Password</label>
-                    </div>
-
-                    <div class="text-center pt-1 mb-5 pb-1" style="margin-bottom: 2rem;">
-                      <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Log in</button>
-                      <a class="text-muted" href="#!">Forgot password?</a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center pb-4" style="display: flex; justify-content: center; align-items: center;">
-                      <p class="mb-0 me-2" style="margin-right: 1rem;">Don't have an account?</p>
-                      <button type="button"    class="btn btn-outline-danger">Create new</button>
-                    </div>
-
-                  </form>
-
-                </div>
-              </div>
-              <div class="col-lg-6 d-flex align-items-center gradient-custom-2" style="display: flex; align-items: center; border-top-right-radius: .3rem; border-bottom-right-radius: .3rem;">
-                <div class="text-white px-3 py-4 p-md-5 mx-md-4" style="color: white; padding: 2rem;">
-                  <h4 class="mb-4">We are more than just a company</h4>
-                  <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-  </section>
+  {% endif %}
+
+      {% csrf_token %}
+      <h2 style="text-align:center; margin-bottom:1rem; color:#0f3443;">Login</h2>
+
+      <input type="email" name="email" placeholder="Email" required style="margin-bottom:1rem; padding:0.75rem; border:1px solid #ccc; border-radius:0.5rem;">
+      <input type="password" name="password" placeholder="Password" required
+  style="margin-bottom:1rem; padding:0.75rem; border:1px solid #ccc; border-radius:0.5rem;">
+<small style="color:gray; font-size:12px;"></small>
+      <button type="submit" style="padding:0.75rem; background-color:#34e89e; color:white; border:none; border-radius:0.5rem; cursor:pointer;">Login</button>
+
+      <p style="text-align:center; margin-top:1rem;">Does not have a account? <a href="{% url 'register' %}">Register</a>
+
+  </div>
+
 </body>
 </html>
