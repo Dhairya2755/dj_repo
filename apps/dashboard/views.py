@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from .models import UserRegistration
 import re
-
+from .helpers import *
+from django.core.mail import send_mail
+from django.conf import settings
+import random
 # Create your views here.
 
 # def index_inner(request):
@@ -19,43 +22,43 @@ def validate_password(password):
     return None
 
 # Register View
-def register(request):
-    if request.method == "POST":
-        fullname = request.POST.get("fullname")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        confirm_password = request.POST.get("confirm_password")
+# def register(request):
+#     if request.method == "POST":
+#         fullname = request.POST.get("fullname")
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+#         confirm_password = request.POST.get("confirm_password")
 
-        error = validate_password(password)
-        if error:
-            return render(request, 'dashboard/register.html', {"error": error})
+#         error = validate_password(password)
+#         if error:
+#             return render(request, 'dashboard/register.html', {"error": error})
 
-        if password != confirm_password:
-            return render(request, 'dashboard/register.html', {"error": "Passwords do not match."})
+#         if password != confirm_password:
+#             return render(request, 'dashboard/register.html', {"error": "Passwords do not match."})
 
-        UserRegistration.objects.create(
-            fullname=fullname,
-            email=email,
-            password=password
-        )
-        return redirect('login')  # Go to login after registration
+#         UserRegistration.objects.create(
+#             fullname=fullname,
+#             email=email,
+#             password=password
+#         )
+#         return redirect('login')  # Go to login after registration
 
-    return render(request, 'dashboard/register.html')
+#     return render(request, 'dashboard/register.html')
 
 # Login View
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+# def login_view(request):
+#     if request.method == "POST":
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
 
-        # Simple database check
-        user = UserRegistration.objects.filter(email=email, password=password).first()
-        if user:
-            return redirect('index_inner')
-        else:
-            return render(request, 'dashboard/login.html', {'error': 'Invalid credentials'})
+#         # Simple database check
+#         user = UserRegistration.objects.filter(email=email, password=password).first()
+#         if user:
+#             return redirect('index_inner')
+#         else:
+#             return render(request, 'dashboard/login.html', {'error': 'Invalid credentials'})
 
-    return render(request, 'dashboard/login.html')
+#     return render(request, 'dashboard/login.html')
 
 # Dashboard
 def index_inner(request):
@@ -67,3 +70,7 @@ def logout(request):
     #return redirect(request,'dashboard/register.html')
     #return redirect(request,'dashboard/login.html')
     return redirect ('login')
+
+def employeelogin(request):
+    return render(request, 'dashboard/emplogin.html')
+

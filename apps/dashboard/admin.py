@@ -1,3 +1,7 @@
+# admin.py — Correct way
 from django.contrib import admin
+from .models import UserRegistration
 
-# Register your models here.
+@admin.register(UserRegistration)
+class UserRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'password')  # customize as needed
