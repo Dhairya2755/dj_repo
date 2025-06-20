@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.crypto import get_random_string
 import uuid
+from django.contrib.auth.models import User
 
 class BaseClass(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -28,6 +29,7 @@ class Employee(BaseClass):
     mobile = models.IntegerField()
     password = models.CharField(max_length=8, blank=True)
     doj = models.DateField()
+    dob = models.DateField()
 
     def save(self, *args, **kwargs):
         if not self.employee_id:
@@ -42,3 +44,10 @@ class Employee(BaseClass):
             self.password = get_random_string(length=8)
 
         super().save(*args, **kwargs)
+
+class EmployeeProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='employee_photos/', default='default.jpg')
+
+    def __str__(self):
+        return self.user.get_full_name()

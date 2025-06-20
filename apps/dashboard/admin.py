@@ -29,7 +29,7 @@ Password: {employee.password}
 ✅ Please log in to the employee portal using the above credentials.  
 🔁 It is **strongly recommended** that you change your password after first login to ensure your account security.
 
-📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at support@yourcompany.com.
+📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at gandhidhairya510@gmail.com.
 
 Once again, welcome aboard! We are thrilled to have you with us and look forward to your valuable contributions.
 

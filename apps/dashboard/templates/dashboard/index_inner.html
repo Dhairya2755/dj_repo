@@ -12,7 +12,7 @@
     html, body {
       height: 100%;
       margin: 0;
-      background: linear-gradient(to right, #0f3d3e, #467373,#d2e8e3);
+      background:   linear-gradient(to right, #360033, #0b8793);
     }
   </style>
 <body>
@@ -23,7 +23,7 @@
     
   <div class="container-fluid">
     
-    <a class="navbar-brand" href="#">NAVBAR</a>
+    <a class="navbar-brand" href="#">TECHNOVA</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,7 +39,6 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Claims</a></li>
             <li><a class="dropdown-item" href="#">Claims Status</a></li>
-            <li><a class="dropdown-item" href="#">Investment Declarations</a></li>
             <li><a class="dropdown-item" href="#">Proof Status</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Apply Loans</a></li>
@@ -65,22 +64,9 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">General Information</a></li>
             <li><a class="dropdown-item" href="#">Qualification</a></li>
-            <li><a class="dropdown-item" href="#">Download Compliance Form</a></li>
             <li><a class="dropdown-item" href="#">Induction Feedback</a></li>
-            <li><a class="dropdown-item" href="#">Reimbursement</a></li>
             <li><a class="dropdown-item" href="#">Mediclaim Details</a></li>
             <li><a class="dropdown-item" href="#">General Information Update</a></li>
-          </ul>
-        </li>
-
-
-        <!-- My Approvals Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Approvals
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Approval Dashboard</a></li>
           </ul>
         </li>
 
@@ -94,36 +80,151 @@
           </ul>
         </li>
 
-        <!-- Newsletter Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Newsletter
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">-x-x-x</a></li>
-          </ul>
-        </li>
-
-           <!-- My Adventure Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Adventure
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">-x-x-x</a></li>
-          </ul>
-        </li>
-
-
-      <!-- Search Form -->
+      
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+       <div class="d-flex align-items-center">
+  <span class="text-white me-2">{{ profile.user.first_name }}</span>
+  <img src="{{ profile.photo.url }}" alt="Profile Photo" class="rounded-circle" width="32" height="32">
+</div>
+
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
 
     </div>
   </div>
 </nav>
+<BR></BR>
+<div style="display: flex; justify-content: space-between; padding: 20px; gap: 20px;">
+  <!-- MY PROFILE Card -->
+  <div class="card" style="width: 48%;">
+    <div class="card-body">
+      <h5 class="card-title">MY PROFILE <button type="button" class="btn btn-outline-info">Edit</button></h5>
+      <div class="progress mb-3">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"
+             role="progressbar" aria-valuenow="75" aria-valuemin="0"
+             aria-valuemax="100" style="width: 70%"></div>
+      </div>
+
+      <div class="card-header">Employee Name</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">employee id</li>
+      </ul>
+
+      <div class="card-header">Date of Joining</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">value</li>
+      </ul>
+
+      <div class="card-header">Date of Birth</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">value</li>
+      </ul>
+
+      <div class="card-header">Mobile No</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">value</li>
+      </ul>
+
+      <div class="card-header">Email</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">value</li>
+      </ul>
+
+      <div class="card-header">Location</div>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item">value</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MY PAYROLL Card -->
+  <div class="card" style="width: 48%;">
+    <div class="card-body">
+      <h5 class="card-title">My Payroll</h5>
+    </div>
+  </div>
+
+    <!-- MY SLIPS Card -->
+  <div class="card" >
+    
+    <div class="card-body">
+      <h5 class="card-title">My SLIPS</h5>
+      <div class="card-header">
+    Salary Slips
+  </div>
+</div>
+
+  </div>
+  
+<!-- MY Let`s Get Social Card -->
+  <div class="card" style="width: 48%;">
+    <div class="card-body">
+      <h5 class="card-title">LET`S GET SOCIAL</h5>
+      <div class="card-body">
+    <p><strong>Hello Innovators!</strong></p>
+    <p>
+      <em>TechNova is now live on your favorite social platforms.</em><br>
+      Stay in the loop with the latest tech trends, office culture, and innovation highlights.
+    </p>
+
+    <p class="fw-semibold mt-3 mb-1">🔗 Connect with us:</p>
+
+    <ul class="list-unstyled">
+      <li class="mb-2">
+        <i class="bi bi-linkedin text-primary me-1"></i>
+        <strong>LinkedIn:</strong>
+        <a href="https://www.linkedin.com/company/technova-dummy/" target="_blank">
+          linkedin.com/company/technova-dummy
+        </a>
+      </li>
+      <li class="mb-2">
+        <i class="bi bi-twitter-x text-dark me-1"></i>
+        <strong>Twitter:</strong>
+        <a href="https://twitter.com/technova_dummy" target="_blank">
+          twitter.com/technova_dummy
+        </a>
+      </li>
+      <li class="mb-2">
+        <i class="bi bi-instagram text-danger me-1"></i>
+        <strong>Instagram:</strong>
+        <a href="https://instagram.com/technova_official" target="_blank">
+          instagram.com/technova_official
+        </a>
+      </li>
+    </ul>
+    </div>
+    
+  </div>
+</div>
+<footer class="mt-4" style="background: linear-gradient(to right, #360033, #0b8793); color: white; padding: 30px 0;">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5>TechNova Inc.</h5>
+        <p style="font-size: 14px;">Smart solutions for smarter workforce. Built for performance, designed for people.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Quick Access</h6>
+        <ul class="list-unstyled" style="font-size: 14px;">
+          <li><a href="#" class="text-white text-decoration-none">Profile</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Payroll</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Leave Portal</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Contact HR</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Stay Connected</h6>
+        <a href="#" class="text-white me-3"><i class="bi bi-linkedin" style="font-size: 20px;"></i></a>
+        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x" style="font-size: 20px;"></i></a>
+        <a href="#" class="text-white me-3"><i class="bi bi-instagram" style="font-size: 20px;"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-envelope-fill" style="font-size: 20px;"></i></a>
+      </div>
+    </div>
+    <hr class="border-light">
+    <div style="font-size: 13px;">&copy; {{ current_year }} TechNova Inc. | All rights reserved.</div>
+  </div>
+</footer>
 
 </body>
 </html>
+
+   

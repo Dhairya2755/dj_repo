@@ -3,7 +3,7 @@ from .models import UserRegistration
 import re
 from django.core.mail import send_mail
 from .models import Employee
-from .models import Employee
+from .models import EmployeeProfile
 
 # Create your views here.
 
@@ -101,7 +101,7 @@ Password: {employee.password}
 ✅ Please log in to the employee portal using the above credentials.  
 🔁 It is **strongly recommended** that you change your password after first login to ensure your account security.
 
-📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at support@yourcompany.com.
+📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at gandhidhairya510@gmail.com.
 
 Once again, welcome aboard! We are thrilled to have you with us and look forward to your valuable contributions.
 
@@ -139,3 +139,9 @@ def index_inner(request):
 
 def logout(request):
     return redirect('emplogin')
+
+
+
+def dashboard_view(request):
+    profile = EmployeeProfile.objects.get(user=request.user)
+    return render(request, 'index_inner.html', {'profile': profile})
