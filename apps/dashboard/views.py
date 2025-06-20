@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import UserRegistration
 import re
+from django.core.mail import send_mail
+from .models import Employee
+from .models import Employee
 
 # Create your views here.
 
@@ -74,27 +77,62 @@ def validate_password(password):
 # def verification(request):
 #     return render(request, 'dashboard/register.html')
 
+
+
 def verification(request):
     if request.method == "POST":
         email = request.POST.get("email")
-        user = UserRegistration.objects.filter(email=email).first()
-        if user:
-            return redirect('emplogin')
+        employee = Employee.objects.filter(pvt_email=email).first()
+        if employee:
+            subject = "Welcome to the Company – Your Employee Credentials"
+            message = f"""
+Dear {employee.first_name} {employee.last_name},
+
+We are excited to welcome you to the team! Your employee account has been successfully created. Please find your login credentials and important onboarding information below.
+
+────────────────────────────────────────────
+Here are your credentials:
+
+Employee ID: {employee.employee_id}
+Password: {employee.password}
+
+────────────────────────────────────────────
+
+✅ Please log in to the employee portal using the above credentials.  
+🔁 It is **strongly recommended** that you change your password after first login to ensure your account security.
+
+📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at support@yourcompany.com.
+
+Once again, welcome aboard! We are thrilled to have you with us and look forward to your valuable contributions.
+
+Best regards,  
+ADMIN Team  
+  Dhairya Gandhi
+"""
+            try:
+                send_mail(subject, message, None, [employee.pvt_email])
+                return redirect('emplogin')
+            except Exception as e:
+                return render(request, 'dashboard/verification.html', {"error": f"Failed to send email: {e}"})
         else:
             return render(request, 'dashboard/verification.html', {"error": "Email not registered."})
+
     return render(request, 'dashboard/verification.html')
+
+
 
 def employeelogin(request):
     if request.method == "POST":
-        email = request.POST.get('email')
+        employee_id = request.POST.get('employee_id')
         password = request.POST.get('password')
 
-        user = UserRegistration.objects.filter(email=email, password=password).first()
-        if user:
+        employee = Employee.objects.filter(employee_id=employee_id, password=password).first()
+        if employee:
             return redirect('index_inner')
         else:
             return render(request, 'dashboard/emplogin.html', {'error': 'Invalid credentials'})
     return render(request, 'dashboard/emplogin.html')
+
 
 def index_inner(request):
     return render(request, 'dashboard/index_inner.html')

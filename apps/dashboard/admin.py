@@ -1,3 +1,4 @@
+# admin.py
 from django.contrib import admin
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -5,26 +6,43 @@ from .models import Employee
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'company_email', 'pvt_email', 'mobile')
+    list_display = ('employee_id', 'first_name', 'last_name', 'company_email', 'pvt_email', 'mobile', 'doj')
+    readonly_fields = ('employee_id', 'password')
     actions = ['send_verification_email']
 
     def send_verification_email(self, request, queryset):
         for employee in queryset:
-            subject = "Employee Verification"
-            message = f"""Hello {employee.first_name} {employee.last_name},
+            subject = "Welcome to the Company – Your Employee Credentials"
+            message = f"""
+Dear {employee.first_name} {employee.last_name},
 
-This is your verification email.
+We are excited to welcome you to the team! Your employee account has been successfully created. Please find your login credentials and important onboarding information below.
 
-Employee ID: {employee.id}
-Private Email: {employee.pvt_email}
+────────────────────────────────────────────
+Here are your credentials:
 
-Please verify and keep this information safe.
+Employee ID: {employee.employee_id}
+Password: {employee.password}
 
-Thank you."""
+────────────────────────────────────────────
+
+✅ Please log in to the employee portal using the above credentials.  
+🔁 It is **strongly recommended** that you change your password after first login to ensure your account security.
+
+📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at support@yourcompany.com.
+
+Once again, welcome aboard! We are thrilled to have you with us and look forward to your valuable contributions.
+
+Best regards,  
+ADMIN Team  
+  Dhairya Gandhi
+"""
             try:
                 send_mail(subject, message, None, [employee.pvt_email])
                 self.message_user(request, f"Email sent to {employee.pvt_email}.", messages.SUCCESS)
             except Exception as e:
-                self.message_user(request, f"Failed to send email to {employee.pvt_email}: {e}", messages.ERROR)
+                self.message_user(request, f"Failed to send email: {e}", messages.ERROR)
 
-    send_verification_email.short_description = "Send Verification Email to Selected Employees"
+    send_verification_email.short_description = "Send Manual Verification Email"
+
+
