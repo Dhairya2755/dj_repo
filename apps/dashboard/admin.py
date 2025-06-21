@@ -1,4 +1,3 @@
-# admin.py
 from django.contrib import admin
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -6,7 +5,11 @@ from .models import Employee
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('employee_id', 'first_name', 'last_name', 'company_email', 'pvt_email', 'mobile', 'doj')
+    list_display = (
+        'employee_id', 'first_name', 'last_name',
+        'company_email', 'designation', 'department', 'doj'
+    )
+    search_fields = ('employee_id', 'first_name', 'last_name', 'company_email')
     readonly_fields = ('employee_id', 'password')
     actions = ['send_verification_email']
 
@@ -27,15 +30,15 @@ Password: {employee.password}
 ────────────────────────────────────────────
 
 ✅ Please log in to the employee portal using the above credentials.  
-🔁 It is **strongly recommended** that you change your password after first login to ensure your account security.
+🔁 It is strongly recommended that you change your password after first login to ensure your account security.
 
-📌 If you face any issues accessing the portal or if you have any questions, feel free to reach out to the IT department at gandhidhairya510@gmail.com.
+📌 If you face any issues accessing the portal or have any questions, reach out to the IT department at gandhidhairya510@gmail.com.
 
 Once again, welcome aboard! We are thrilled to have you with us and look forward to your valuable contributions.
 
 Best regards,  
 ADMIN Team  
-  Dhairya Gandhi
+Dhairya Gandhi
 """
             try:
                 send_mail(subject, message, None, [employee.pvt_email])
@@ -44,5 +47,3 @@ ADMIN Team
                 self.message_user(request, f"Failed to send email: {e}", messages.ERROR)
 
     send_verification_email.short_description = "Send Manual Verification Email"
-
-

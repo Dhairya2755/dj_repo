@@ -81,120 +81,124 @@
         </li>
 
       
-      <form class="d-flex" role="search">
-       <div class="d-flex align-items-center">
-  <span class="text-white me-2">{{ profile.user.first_name }}</span>
-  <img src="{{ profile.photo.url }}" alt="Profile Photo" class="rounded-circle" width="32" height="32">
-</div>
+     <div class="d-flex align-items-center ms-auto">
+        {% if request.session.employee_name %}
+          <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
+        {% endif %}
+       
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
 
     </div>
   </div>
 </nav>
 <BR></BR>
-<div style="display: flex; justify-content: space-between; padding: 20px; gap: 20px;">
-  <!-- MY PROFILE Card -->
-  <div class="card" style="width: 48%;">
-    <div class="card-body">
-      <h5 class="card-title">MY PROFILE <button type="button" class="btn btn-outline-info">Edit</button></h5>
-      <div class="progress mb-3">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"
-             role="progressbar" aria-valuenow="75" aria-valuemin="0"
-             aria-valuemax="100" style="width: 70%"></div>
-      </div>
 
-      <div class="card-header">Employee Name</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">employee id</li>
-      </ul>
 
-      <div class="card-header">Date of Joining</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">value</li>
-      </ul>
+{% block content %}
+<style>
+    body {
+        background-color: #f4f7f9;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-      <div class="card-header">Date of Birth</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">value</li>
-      </ul>
+    .card {
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
 
-      <div class="card-header">Mobile No</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">value</li>
-      </ul>
+    .card-header {
+        background-color: #77b8c7;
+        color: white;
+        font-weight: bold;
+    }
 
-      <div class="card-header">Email</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">value</li>
-      </ul>
+    .progress-bar {
+        background-color: #b1d8e3;
+    }
 
-      <div class="card-header">Location</div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">value</li>
-      </ul>
+    .label-title {
+        font-weight: 500;
+        color: #555;
+    }
+
+    .label-value {
+        color: #333;
+    }
+</style>
+
+<div class="container-fluid mt-3 px-4">
+    <div class="row g-3">
+        <!-- My Profile -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">MY PROFILE  <a href="{% url 'edit_profile' %}" class="btn btn-outline-dark me-2">Edit Profile</a></div>
+                <div class="card-body">
+                    <label class="d-block mb-2">70% Profile Completed</label>
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+                    </div>
+
+                    <p><span class="label-title">Name:</span> <span class="label-value">{{ employee.first_name }}</span></p>
+                    <p><span class="label-title">Employee ID:</span> <span class="label-value">{{ employee.employee_id }}</span></p>
+                    <p><span class="label-title">Date of Joining:</span> <span class="label-value">{{ employee.doj }}</span></p>
+                    <p><span class="label-title">Date of Birth:</span> <span class="label-value">{{ employee.dob }}</span></p>
+                    <p><span class="label-title">Mobile:</span> <span class="label-value">{{ employee.mobile }}</span></p>
+                    <p><span class="label-title">Email:</span> <span class="label-value">{{ employee.pvt_email }}</span></p>
+                    <p><span class="label-title">Location:</span> <span class="label-value">{{ employee.location }}</span></p>
+                    <p><span class="label-title">Designation:</span> <span class="label-value">{{ employee.designation }}</span></p>
+                    <p><span class="label-title">Department:</span> <span class="label-value">{{ employee.department }}</span></p>
+                    <p><span class="label-title">Manager:</span> <span class="label-value">{{ employee.manager }}</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payroll & Slips -->
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header">MY PAYROLL</div>
+                <div class="card-body text-center">
+                    <h6>My Slips</h6>
+                    <div class="d-flex justify-content-around mb-3">
+                        {% for month in salary_slips %}
+                        <div>
+                            <p>{{ month.month }} - {{ month.year }}</p>
+                            <a href="{{ month.download_url }}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-download"></i> Download
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex justify-content-center gap-3">
+                        
+                        <button class="btn btn-info text-white">Salary Slips</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Let's Get Social -->
+            <div class="card">
+                <div class="card-header">LET’S GET SOCIAL!</div>
+                <div class="card-body">
+                    <p><strong>Hey Team!</strong></p>
+                    <p><em>We’re on social media. Are you following us yet? If not, now’s the perfect time!</em></p>
+                    <p>Stay updated on all the cool things happening at GFL from big wins to behind-the-scenes fun.</p>
+                    <ul>
+                        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/showcase/inoxgfl/" target="_blank">View</a></li>
+                        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/inoxgflgroup" target="_blank">View</a></li>
+                        <li><strong>Facebook:</strong> <a href="https://www.facebook.com/inoxgfl" target="_blank">View</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- MY PAYROLL Card -->
-  <div class="card" style="width: 48%;">
-    <div class="card-body">
-      <h5 class="card-title">My Payroll</h5>
-    </div>
-  </div>
-
-    <!-- MY SLIPS Card -->
-  <div class="card" >
-    
-    <div class="card-body">
-      <h5 class="card-title">My SLIPS</h5>
-      <div class="card-header">
-    Salary Slips
-  </div>
 </div>
+{% endblock %}
 
-  </div>
-  
-<!-- MY Let`s Get Social Card -->
-  <div class="card" style="width: 48%;">
-    <div class="card-body">
-      <h5 class="card-title">LET`S GET SOCIAL</h5>
-      <div class="card-body">
-    <p><strong>Hello Innovators!</strong></p>
-    <p>
-      <em>TechNova is now live on your favorite social platforms.</em><br>
-      Stay in the loop with the latest tech trends, office culture, and innovation highlights.
-    </p>
-
-    <p class="fw-semibold mt-3 mb-1">🔗 Connect with us:</p>
-
-    <ul class="list-unstyled">
-      <li class="mb-2">
-        <i class="bi bi-linkedin text-primary me-1"></i>
-        <strong>LinkedIn:</strong>
-        <a href="https://www.linkedin.com/company/technova-dummy/" target="_blank">
-          linkedin.com/company/technova-dummy
-        </a>
-      </li>
-      <li class="mb-2">
-        <i class="bi bi-twitter-x text-dark me-1"></i>
-        <strong>Twitter:</strong>
-        <a href="https://twitter.com/technova_dummy" target="_blank">
-          twitter.com/technova_dummy
-        </a>
-      </li>
-      <li class="mb-2">
-        <i class="bi bi-instagram text-danger me-1"></i>
-        <strong>Instagram:</strong>
-        <a href="https://instagram.com/technova_official" target="_blank">
-          instagram.com/technova_official
-        </a>
-      </li>
-    </ul>
-    </div>
-    
-  </div>
-</div>
 <footer class="mt-4" style="background: linear-gradient(to right, #360033, #0b8793); color: white; padding: 30px 0;">
   <div class="container text-center">
     <div class="row">

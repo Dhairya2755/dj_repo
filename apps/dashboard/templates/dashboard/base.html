@@ -80,9 +80,13 @@
         </li>
 
       <!-- Search Form -->
-      <form class="d-flex" role="search">
-       
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        <div class="d-flex align-items-center ms-auto">
+        {% if request.session.employee_name %}
+          <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
+        {% endif %}
+        <a href="{% url 'edit_profile' %}" class="btn btn-outline-light me-2">Edit Profile</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
 
     </div>
   </div>
