@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path 
 from .views import *
-from .views import edit_profile
 urlpatterns = [
   #path('', register, name='register'),
    # path('login/', login_view, name='login'),
@@ -9,7 +8,7 @@ urlpatterns = [
     path('emplogin/', employeelogin, name='emplogin'),
     path('index_inner/', index_inner, name='index_inner'),
     path('logout/', logout, name='logout'),
-     path('edit-profile/', edit_profile, name='edit_profile'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
     ]
    
 
