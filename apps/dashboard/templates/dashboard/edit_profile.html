@@ -2,18 +2,90 @@
 
 {% block body %}
 
-    <h2>Edit Profile for {{ employee.first_name }} {{ employee.last_name }}</h2>
-    <form method="post" action="{%url 'edit_profile'%}"> 
+<style>
+   html, body {
+        background: linear-gradient(to right, #a18cd1, #fbc2eb);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0;
+    }
+
+    .card {
+        width: 600%;
+        max-width: 600px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+
+    .card-header {
+        background-color: #4682b4;
+        color: white;
+        text-align: center;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="form-container">
+    <form method="post" action="{% url 'edit_profile' %}">
         {% csrf_token %}
-        <!-- Add form fields later as needed -->
-        <label>Mobile:</label>
-        <input type="text" name="mobile" value="{{ employee.mobile }}"><br><br>
-        <label>Mobile:</label>
-        <input type="text" name="mobile" value="{{ employee.mobile }}"><br><br>
-        <label>Mobile:</label>
-        <input type="text" name="mobile" value="{{ employee.mobile }}"><br><br>
-        <label>Mobile:</label>
-        <input type="text" name="mobile" value="{{ employee.mobile }}"><br><br>
-        <input type="submit" value="Update">
+        <div class="card">
+            <div class="card-header">
+                <h2>Edit Profile</h2>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%"></div>
+                </div>
+
+                <label>Employee ID:</label>
+                <input type="text" name="employee_id" class="form-control" value="{{ employee.employee_id }}" readonly>
+
+                <label>First Name:</label>
+                <input type="text" name="first_name" class="form-control" value="{{ employee.first_name }}" required>
+
+                <label>Last Name:</label>
+                <input type="text" name="last_name" class="form-control" value="{{ employee.last_name }}" required>
+
+                <label>Company Email:</label>
+                <input type="email" name="company_email" class="form-control" value="{{ employee.company_email }}">
+
+                <label>Private Email:</label>
+                <input type="email" name="pvt_email" class="form-control" value="{{ employee.pvt_email }}">
+
+                <label>Mobile:</label>
+                <input type="text" name="mobile" class="form-control" value="{{ employee.mobile }}">
+
+                <label>Designation:</label>
+                <input type="text" name="designation" class="form-control" value="{{ employee.designation }}">
+
+                <label>Department:</label>
+                <input type="text" name="department" class="form-control" value="{{ employee.department }}">
+
+                <label>Location:</label>
+                <input type="text" name="location" class="form-control" value="{{ employee.location }}">
+
+                <input type="submit" value="Update" class="btn btn-primary mt-3">
+            </div>
+        </div>
     </form>
+</div>
+
 {% endblock %}

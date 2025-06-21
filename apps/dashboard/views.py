@@ -112,6 +112,31 @@ def edit_profile(request):
     if not employee_id:
         return redirect('emplogin')
 
-        # employee = get_object_or_404(Employee, employee_id=employee_id)
-        # return render(request, 'dashboard/edit_profile.html', {'employee': employee})
-    return render(request, 'dashboard/edit_profile.html')
+    employee = get_object_or_404(Employee, employee_id=employee_id)
+
+    if request.method == 'POST':
+        # Defensive check
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+
+        if not first_name or not last_name:
+            return render(request, 'dashboard/edit_profile.html', {
+                'employee': employee,
+                'error': 'First and Last name are required.'
+            })
+
+        employee.first_name = first_name
+        employee.last_name = last_name
+        employee.company_email = request.POST.get('company_email', '').strip()
+        employee.pvt_email = request.POST.get('pvt_email', '').strip()
+        employee.mobile = request.POST.get('mobile', '').strip()
+        employee.designation = request.POST.get('designation', '').strip()
+        employee.department = request.POST.get('department', '').strip()
+        employee.location = request.POST.get('location', '').strip()
+        employee.save()
+
+        return redirect('index_inner')
+
+    return render(request, 'dashboard/edit_profile.html', {'employee': employee})
+
+
