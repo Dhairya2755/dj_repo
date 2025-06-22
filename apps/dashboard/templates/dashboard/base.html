@@ -56,7 +56,7 @@
 <li><a class="dropdown-item" href="{% url 'generalinfo' %}">General Information</a></li>
 <li><a class="dropdown-item" href="{% url 'qualification' %}">Qualification</a></li>
 <li><a class="dropdown-item" href="{% url 'induction' %}">Induction Feedback</a></li>
-<li><a class="dropdown-item" href="#">Mediclaim Details</a></li>
+<li><a class="dropdown-item" href="{% url 'family_info' %}">Mediclaim Details</a></li>
 <li><a class="dropdown-item" href="{% url 'updategeneral' %}">General Information Update</a></li>
 </ul>
 </li>
@@ -78,16 +78,7 @@
         <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
 </div>
 
-<li class="nav-item dropdown">
-<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="myJoiningDropdown" role="button">
-        My Joining
-      </a>
-<div aria-labelledby="myJoiningDropdown" class="dropdown-menu">
-<a class="dropdown-item" href="generalinfo.html">General Information</a>
-<a class="dropdown-item" href="geninfoupdate.html">General Information Update</a>
 </div>
-</li>
-</ul></div>
 </div>
 </nav>
 

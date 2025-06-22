@@ -1,0 +1,166 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px;
+            background: linear-gradient(to right, #a18cd1, #fbc2eb);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #68a9b4;
+            color: white;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <h3>Mediclaim Member Information</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th><th>Gender</th><th>Relation</th><th>DOB</th><th>Age</th><th>Disabled</th><th>Date of Demise</th><th>Status</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in family_members %}
+            <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.gender }}</td>
+                <td>{{ member.relation }}</td>
+                <td>{{ member.dob }}</td>
+                <td>{{ member.age }}</td>
+                <td>{{ member.differently_abled }}</td>
+                <td>{{ member.date_of_demise|default:"" }}</td>
+                <td>Active</td>
+                <td><button style="background:red;color:white;">Remove</button></td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="9">No family members found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h3>Add Family Member Information</h3>
+    <p><strong>Empcode:</strong> {{ employee.employee_id }} &nbsp; <strong>Name:</strong> {{ employee.first_name }} {{ employee.last_name }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label>Family Member Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>DOB</label>
+                <input type="date" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label>Relation With Employee</label>
+                <select name="relation" required>
+                    <option value="">--Select--</option>
+                    <option value="Son">Son</option>
+                    <option value="Daughter">Daughter</option>
+                    <option value="Spouse">Spouse</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select name="gender" required>
+                    <option value="">--Select--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Whether Residing with Him/Her?</label>
+                <select name="residing_with">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mobile No</label>
+                <input type="text" name="mobile">
+            </div>
+            <div class="form-group">
+                <label>Differently Abled</label>
+                <select name="differently_abled">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Declare as Nominee</label>
+                <select name="nominee">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
+        <button class="submit-btn" type="submit">Add Family Member</button>
+    </form>
+</div>
+
+</body>
+{% endblock %}
+</html>

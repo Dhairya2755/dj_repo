@@ -118,3 +118,21 @@ class QualificationDetail(models.Model):
 
     def __str__(self):
         return f"{self.employee.employee_id} - {self.course_name}"
+
+
+class FamilyMember(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    dob = models.DateField()
+    age = models.PositiveIntegerField()
+    relation = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10)
+    residing_with = models.CharField(max_length=10)  # Yes/No
+    mobile = models.CharField(max_length=15)
+    differently_abled = models.CharField(max_length=10)  # Yes/No
+    nominee = models.CharField(max_length=10)  # Yes/No
+    disabled = models.BooleanField(default=False)
+    date_of_demise = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.employee.employee_id})"

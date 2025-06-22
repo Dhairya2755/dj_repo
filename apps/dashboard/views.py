@@ -190,6 +190,47 @@ def induction(request):
     
     return render(request, 'dashboard/induction-feedback.html', {"questions": questions})
 
+#mediclaim details
+from django.shortcuts import render, redirect
+from .models import Employee, FamilyMember
+from datetime import date
+
+def calculate_age(dob):
+    today = date.today()
+    return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+
+def family_info(request):
+    employee_id = request.session.get('employee_id')
+    if not employee_id:
+        return redirect('emplogin')
+
+    employee = Employee.objects.get(employee_id=employee_id)
+    family_members = FamilyMember.objects.filter(employee=employee)
+
+    if request.method == 'POST':
+        dob = request.POST.get('dob')
+        name = request.POST.get('name')
+        age = calculate_age(date.fromisoformat(dob))
+
+        FamilyMember.objects.create(
+            employee=employee,
+            name=name,
+            dob=dob,
+            age=age,
+            relation=request.POST.get('relation'),
+            gender=request.POST.get('gender'),
+            residing_with=request.POST.get('residing_with'),
+            mobile=request.POST.get('mobile'),
+            differently_abled=request.POST.get('differently_abled'),
+            nominee=request.POST.get('nominee'),
+        )
+        return redirect('index_inner')
+
+    return render(request, 'dashboard/family_info.html', {
+        'employee': employee,
+        'family_members': family_members
+    })
+
 
 #general information update
 def updategeneral(request):

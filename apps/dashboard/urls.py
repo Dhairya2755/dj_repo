@@ -14,6 +14,8 @@ urlpatterns = [
     path('updategeneral/',updategeneral,name='updategeneral'),
     path('induction/',induction,name='induction'),
     path('qualification/', qualification_form, name='qualification'),
+    path('family_info/', family_info, name='family_info'),
+
 
     ]
    
