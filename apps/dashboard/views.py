@@ -149,6 +149,23 @@ def generalinfo(request):
     
     return render(request, 'dashboard/generalinfo.html',context)
 
+#induction feedback 
+def induction(request):
+    questions = {
+    1: "I felt welcomed on joining.",
+    2: "I had an energetic beginning and my Induction Program was very engaging.",
+    3: "I felt that I was importing during my Induction Period.",
+    4: "My workstation was up and running on the first day of the joining.",
+    5: "I got all the resources timely viz Laptop, datacard, mobile etc, that I need to start functioning.",
+    6: "I felt confident about the Knowledge of the Company gained during Induction period.",
+    7: "My Departmental Induction was conducted effectively.",
+    8: "I know my Job Description and my reporting manager have explained my role to me.",
+    9: "I started feeling comfortable in the company because of the Induction Program.",
+    10: "I feel connected with the company & a part of the team because of induction program."
+}
+    
+    return render(request, 'dashboard/induction-feedback.html', {"questions": questions})
+
 
 #general information update
 def updategeneral(request):

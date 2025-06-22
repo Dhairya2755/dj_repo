@@ -1,0 +1,103 @@
+{% extends 'dashboard/base.html' %}
+{% block body %}
+
+<title>Induction Feedback Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+             background: linear-gradient(to right, #a18cd1, #fbc2eb);
+            padding: 40px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Induction Feedback Form</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td class="label">Employee Id & Name</td>
+                <td><input type="text" name="employee_id" required></td>
+                <td><input type="text" name="employee_name" required></td>
+            </tr>
+            <tr><th>S.No.</th><th>Particulars</th><th>Options</th></tr>
+            {% for i, question in questions.items %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ question }}</td>
+                <td>
+                    <select name="q{{ i }}" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>11</td>
+                <td>Things that are appreciable about the Induction Program *</td>
+                <td><textarea name="remark" required></textarea></td>
+            </tr>
+        </table>
+        <button type="submit" class="submit-btn">Submit Feedback</button>
+    </form>
+</div>
+</body>
+</html>
+
+{% endblock %}

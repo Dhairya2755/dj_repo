@@ -78,3 +78,26 @@ def create_employee_profile(sender, instance, created, **kwargs):
     if created:
         EmployeeProfile.objects.create(user=instance)
 
+
+
+class InductionFeedback(models.Model):
+    employee_id = models.CharField(max_length=10, unique=True, blank=True)
+    first_name = models.CharField(max_length=255,null=False,blank=False)
+    
+    q1 = models.CharField(max_length=5)
+    q2 = models.CharField(max_length=5)
+    q3 = models.CharField(max_length=5)
+    q4 = models.CharField(max_length=5)
+    q5 = models.CharField(max_length=5)
+    q6 = models.CharField(max_length=5)
+    q7 = models.CharField(max_length=5)
+    q8 = models.CharField(max_length=5)
+    q9 = models.CharField(max_length=5)
+    q10 = models.CharField(max_length=5)
+    
+    remark = models.TextField(blank=True, null=True)
+
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.employee_id} {self.first_name} "
