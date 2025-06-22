@@ -141,9 +141,24 @@ def edit_profile(request):
 
 #general information
 def generalinfo(request):
+    employee_id_ = request.session.get('employee_id')
+    emp= Employee.objects.get(employee_id= employee_id_)
+    context ={
+        'employee':emp
+    }
     
-    return render(request, 'dashboard/generalinfo.html')
+    return render(request, 'dashboard/generalinfo.html',context)
 
+
+#general information update
+def updategeneral(request):
+    employee_id_ = request.session.get('employee_id')
+    empl = Employee.objects.get(employee_id = employee_id_)
+    context1 = {
+        'employee': empl
+    }
+
+    return render(request, 'dashboard/geninfoupdate.html',context1)
 
 #policy circular
 def policy_and_circular(request):

@@ -11,6 +11,7 @@ urlpatterns = [
     path('edit_profile/', edit_profile, name='edit_profile'),
     path('policy-and-circular/', policy_and_circular, name='policy_and_circular'),
     path('generalinfo/',generalinfo,name='generalinfo'),
+    path('updategeneral/',updategeneral,name='updategeneral')
     ]
    
 
