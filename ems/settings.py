@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -131,6 +132,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Or use your email provider
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'gandhidhairya510@gmail.com'
-EMAIL_HOST_PASSWORD = 'ljps jogp spma qafo'  
+EMAIL_HOST_USER = 'technovadesk@gmail.com'
+EMAIL_HOST_PASSWORD = 'ofua ancn vtmj irgc'  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

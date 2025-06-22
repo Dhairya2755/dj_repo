@@ -84,7 +84,7 @@
         {% if request.session.employee_name %}
           <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
         {% endif %}
-        <a href="{% url 'edit_profile' %}" class="btn btn-outline-light me-2">Edit Profile</a>
+        
         <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
       </div>
 

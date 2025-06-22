@@ -35,7 +35,7 @@ Please log in at the portal. Change your password after login.
 
 Best regards,  
 ADMIN Team  
-Dhairya Gandhi
+Tech Nova Desk
 """
             try:
                 send_mail(subject, message, None, [employee.pvt_email])
@@ -138,5 +138,6 @@ def edit_profile(request):
         return redirect('index_inner')
 
     return render(request, 'dashboard/edit_profile.html', {'employee': employee})
+
 
 

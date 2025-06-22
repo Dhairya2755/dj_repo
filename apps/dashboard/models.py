@@ -2,6 +2,10 @@ from django.db import models
 from django.utils.crypto import get_random_string
 import uuid
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+
 
 # Abstract base class with UUID + timestamps
 class BaseClass(models.Model):
@@ -40,6 +44,7 @@ class Employee(BaseClass):
     designation = models.CharField(max_length=100, blank=True, null=True)
     department = models.CharField(max_length=100, blank=True, null=True)
     manager = models.CharField(max_length=100, blank=True, null=True)
+    photo = models.ImageField(upload_to='employee_photos/', default='default.jpg')
 
     def save(self, *args, **kwargs):
         if not self.employee_id:
@@ -65,3 +70,11 @@ class EmployeeProfile(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+    
+
+
+@receiver(post_save, sender=User)
+def create_employee_profile(sender, instance, created, **kwargs):
+    if created:
+        EmployeeProfile.objects.create(user=instance)
+
