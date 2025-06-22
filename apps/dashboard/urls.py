@@ -13,6 +13,8 @@ urlpatterns = [
     path('generalinfo/',generalinfo,name='generalinfo'),
     path('updategeneral/',updategeneral,name='updategeneral'),
     path('induction/',induction,name='induction'),
+    path('qualification/', qualification_form, name='qualification'),
+
     ]
    
 

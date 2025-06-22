@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import UserRegistration, Employee, EmployeeProfile
+from .models import UserRegistration, Employee, EmployeeProfile , QualificationDetail
+
 
 import re
 from django.core.mail import send_mail
@@ -148,6 +149,29 @@ def generalinfo(request):
     }
     
     return render(request, 'dashboard/generalinfo.html',context)
+
+#qualification
+
+def qualification_form(request):
+    employee = Employee.objects.filter(employee_id='emp012').first()  # Use session or login in real case
+
+    if request.method == 'POST':
+        QualificationDetail.objects.create(
+            employee=employee,
+            qualification_type=request.POST.get('qualification_type'),
+            course_name=request.POST.get('course_name'),
+            specialization=request.POST.get('specialization'),
+            course_type=request.POST.get('course_type'),
+            school_college=request.POST.get('school_college'),
+            board_university=request.POST.get('board_university'),
+            percentage=request.POST.get('percentage'),
+            passing_year=request.POST.get('passing_year'),
+            document=request.FILES.get('document')
+        )
+        return redirect('index_inner')
+
+    return render(request, 'dashboard/qualification_form.html', {'employee': employee})
+
 
 #induction feedback 
 def induction(request):
