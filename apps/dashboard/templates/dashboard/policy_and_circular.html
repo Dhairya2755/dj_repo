@@ -1,0 +1,70 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block body %}
+<style>
+   html, body {
+        background: linear-gradient(to right, #a18cd1, #fbc2eb);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+  <h2>Company`s Policies and Circulars</h2>
+  
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Amendment-2025
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">The Amendment-2025 introduces key changes to our workplace safety policies, focusing on chemical storage protocols and PPE requirements in high-risk zones. It mandates monthly safety drills, stricter monitoring of hazardous waste, and revised procedures for emergency shutdowns. This amendment aligns Technova with the latest guidelines from the National Chemical Safety Authority. It also incorporates digital record-keeping for compliance tracking. All employees are required to undergo re-certification in process safety management before December 2025.</code> class. </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+      Employee Handbook
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">The Technova Employee Handbook outlines the values, vision, and expectations we uphold as an organization. It includes policies on punctuality, dress code, code of conduct, internal grievance procedures, and employee benefits. Special emphasis is given to environmental safety and ethical responsibilities in chemical handling. The handbook is updated yearly and serves as a reference for all employees. New joiners are required to review it within their first week. Queries related to the handbook can be directed to the HR department.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        HR Policies
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Technova’s HR policies foster a safe, inclusive, and growth-oriented workplace. These policies ensure fair hiring, transparent appraisals, zero tolerance toward harassment, and support for employee well-being. We offer flexible work hours for eligible roles, comprehensive leave structures, and opportunities for internal transfers. Regular feedback sessions are conducted to align personal goals with organizational objectives. All HR policies are reviewed quarterly to reflect evolving workforce needs and legal requirements.</div>
+    </div>
+  </div>
+  <div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        Notice and Corporate Circulars
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">This section provides employees with timely updates about operational changes, strategic plans, and upcoming events. Circulars may include information about plant maintenance schedules, compliance deadlines, new project launches, or executive announcements. All notices are officially released by management and remain accessible for future reference. Technova ensures these communications are clear and actionable. Employees are advised to regularly check the intranet or notice boards for new circulars. Failure to adhere to instructions in official notices may lead to disciplinary action.
+</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+        SA 8000 Manual
+      </button>
+    </h2>
+    <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Technova proudly adheres to the SA 8000 standards, promoting ethical labor practices, workplace safety, and employee rights. Our manual outlines procedures to prevent child labor, ensure fair wages, and maintain a discrimination-free environment. We conduct regular internal audits and training to reinforce compliance. Third-party inspections are also welcomed to validate our processes. All employees, vendors, and contractors must follow these guidelines. Technova believes that maintaining high social accountability is essential for sustainable and responsible growth..</div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -9,6 +9,8 @@ urlpatterns = [
     path('index_inner/', index_inner, name='index_inner'),
     path('logout/', logout, name='logout'),
     path('edit_profile/', edit_profile, name='edit_profile'),
+    path('policy-and-circular/', policy_and_circular, name='policy_and_circular'),
+    path('generalinfo/',generalinfo,name='generalinfo'),
     ]
    
 

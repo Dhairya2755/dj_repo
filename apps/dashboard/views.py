@@ -139,5 +139,13 @@ def edit_profile(request):
 
     return render(request, 'dashboard/edit_profile.html', {'employee': employee})
 
+#general information
+def generalinfo(request):
+    
+    return render(request, 'dashboard/generalinfo.html')
 
+
+#policy circular
+def policy_and_circular(request):
+    return render(request, 'dashboard/policy_and_circular.html')
 
