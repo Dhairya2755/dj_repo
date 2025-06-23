@@ -176,3 +176,35 @@ class DocumentAcceptance(BaseClass):
 
     def __str__(self):
         return f"{self.employee.first_name} - {self.document_name} ({self.status})"
+
+
+class InvestmentProofStatus(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    section = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+    policy_no = models.CharField(max_length=100)
+    payment_date = models.DateField()
+    relation_with_beneficiary = models.CharField(max_length=100)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    approved_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount_to_be_received = models.DecimalField(max_digits=10, decimal_places=2)
+    comments = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.employee.first_name} - {self.section}"
+
+
+class HRARentProofStatus(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    from_date = models.DateField()
+    to_date = models.DateField()
+    city = models.CharField(max_length=100)
+    metro = models.CharField(max_length=10)  # Yes/No
+    landlord_pan = models.CharField(max_length=50)
+    monthly_rent = models.DecimalField(max_digits=10, decimal_places=2)
+    approved_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount_to_be_received = models.DecimalField(max_digits=10, decimal_places=2)
+    comments = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.employee.first_name} - Rent Proof"

@@ -307,4 +307,11 @@ def my_acceptance_view(request):
     documents = DocumentAcceptance.objects.select_related('employee').all()
     return render(request, 'dashboard/my_acceptance.html', {'documents': documents})
 
-
+# proof status
+def proof_status_view(request):
+    inv_proofs = InvestmentProofStatus.objects.select_related('employee').all()
+    hra_proofs = HRARentProofStatus.objects.select_related('employee').all()
+    return render(request, 'dashboard/proof_status.html', {
+        'inv_proofs': inv_proofs,
+        'hra_proofs': hra_proofs,
+    })
