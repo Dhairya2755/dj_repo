@@ -141,14 +141,30 @@ class FamilyMember(BaseClass):
     def __str__(self):
         return f"{self.name} ({self.employee.employee_id})"
     
-import random
+# import random
 
-def random_salary():
-    return random.randint(1000,20000)
+# def random_salary():
+#     return random.randint(1000,20000)
 
 
-class EmployeeSalary(BaseClass):
-    employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    amount = models.DecimalField(decimal_places=2, default=25000+random_salary(), max_digits=10)
+# class EmployeeSalary(BaseClass):
+#     employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
+#     amount = models.DecimalField(decimal_places=2, default=25000+random_salary(), max_digits=10)
 
    
+class Loan(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    loan_no = models.CharField(max_length=50)
+    principal_amount_type = models.CharField(max_length=50)
+    loan_type = models.CharField(max_length=50)
+    loan_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    applied_on = models.DateField()
+    wef_from = models.DateField(verbose_name="Loan WEF From")
+    deduct_from = models.DateField(verbose_name="Loan Deduct From")
+    monthly_installment = models.DecimalField(max_digits=10, decimal_places=2)
+    closing_balance = models.DecimalField(max_digits=10, decimal_places=2)
+    tenure_months = models.PositiveIntegerField()
+    status = models.CharField(max_length=50, default="Pending")
+
+    def __str__(self):
+        return f"{self.loan_no} - {self.employee.first_name} {self.employee.last_name}"

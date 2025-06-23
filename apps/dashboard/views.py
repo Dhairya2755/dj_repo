@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import UserRegistration, Employee, EmployeeProfile , QualificationDetail, EmployeeSalary
-from .models import EmployeeSalary
+from .models import *
 from .utils import generate_salary_pdf
 from datetime import datetime
+from .forms import *
 
 import re
 import uuid
@@ -259,22 +259,22 @@ def policy_and_circular(request):
 
 
 #salary slips
-def generate_salary_view(request):
-    employee_id_ = request.session.get('employee_id')
-    if not employee_id_:
-        return redirect('emplogin')
-    print(type(employee_id_))
-    employee = Employee.objects.get(id=uuid(employee_id_))
-    emp_s=EmployeeSalary.objects.get(id=uuid(employee_id_))
-    HRA=emp_s.salary*50/100
-    current_year = datetime.now().year
-    salary={
-        'name':employee.first_name+employee.last_name,
-        'email':'hi',
-        'mob':'hi',
-        'Salary':emp_s.salary,
-        'HRA':HRA,
-    }
+# def generate_salary_view(request):
+#     employee_id_ = request.session.get('employee_id')
+#     if not employee_id_:
+#         return redirect('emplogin')
+#     print(type(employee_id_))
+#     employee = Employee.objects.get(id=uuid(employee_id_))
+#     emp_s=EmployeeSalary.objects.get(id=uuid(employee_id_))
+#     HRA=emp_s.salary*50/100
+#     current_year = datetime.now().year
+#     salary={
+#         'name':employee.first_name+employee.last_name,
+#         'email':employee.pvt_email,
+#         'mob':employee.mobile,
+#         'Salary':emp_s.salary,
+#         'HRA':HRA,
+    # }
     # Autogenerate last 12 months
     # for i in range(12):
     #     month = (datetime.now().month - i - 1) % 12 + 1
@@ -288,4 +288,18 @@ def generate_salary_view(request):
 
     # slips = EmployeeSalary.objects.filter(employee=employee).order_by('-year', '-month')\
 
-    return render(request, 'dashboard/salary_slips.html',salary)
+  #  return render(request, 'dashboard/salary_slips.html',salary)
+
+#loan
+def loan_history_view(request):
+    loans = Loan.objects.select_related('employee').all()
+    form = LoanForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('loan_history')
+
+    return render(request, 'dashboard/loan_history.html', {'form': form, 'loans': loans})
+
+
+

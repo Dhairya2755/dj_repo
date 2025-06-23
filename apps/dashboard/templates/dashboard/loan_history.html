@@ -1,0 +1,115 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+  <title>Loan History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+       background:   linear-gradient(to right, #360033, #0b8793);
+      
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      color: #444;
+    }
+    form {
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+    thead {
+      background: #66999f;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<br></br>
+<div class="card">
+  <h2>Apply Loan </h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add New Loan Request</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Loan No</th>
+        <th>Principal Loan Amount Type</th>
+        <th>Loan Type</th>
+        <th>Loan Amount</th>
+        <th>Loan Applied On</th>
+        <th>Loan WEF From</th>
+        <th>Loan Deduct From</th>
+        <th>Monthly Installment</th>
+        <th>Closing Balance</th>
+        <th>Loan Tenure (Months)</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if loans %}
+        {% for loan in loans %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ loan.loan_no }}</td>
+          <td>{{ loan.principal_amount_type }}</td>
+          <td>{{ loan.loan_type }}</td>
+          <td>{{ loan.loan_amount }}</td>
+          <td>{{ loan.applied_on }}</td>
+          <td>{{ loan.wef_from }}</td>
+          <td>{{ loan.deduct_from }}</td>
+          <td>{{ loan.monthly_installment }}</td>
+          <td>{{ loan.closing_balance }}</td>
+          <td>{{ loan.tenure_months }}</td>
+          <td>{{ loan.status }}</td>
+          <td><a href="#">View</a> / <a href="#">Foreclose</a></td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr><td colspan="13">No data available in table</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}

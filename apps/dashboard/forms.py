@@ -1,5 +1,5 @@
 from django import forms
-from .models import Employee
+from .models import Employee , Loan
 
 class EmployeeEditForm(forms.ModelForm):
     class Meta:
@@ -26,3 +26,18 @@ class EmployeeEditForm(forms.ModelForm):
         super(EmployeeEditForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class LoanForm(forms.ModelForm):
+    class Meta:
+        model = Loan
+        fields = [
+            'employee', 'loan_no', 'principal_amount_type', 'loan_type',
+            'loan_amount', 'applied_on', 'wef_from', 'deduct_from',
+            'monthly_installment', 'closing_balance', 'tenure_months', 'status'
+        ]
+        widgets = {
+            'applied_on': forms.DateInput(attrs={'type': 'date'}),
+            'wef_from': forms.DateInput(attrs={'type': 'date'}),
+            'deduct_from': forms.DateInput(attrs={'type': 'date'}),
+        }
