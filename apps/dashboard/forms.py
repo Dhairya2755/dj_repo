@@ -1,5 +1,5 @@
 from django import forms
-from .models import Employee , Loan
+from .models import Employee , Loan , Claim
 
 class EmployeeEditForm(forms.ModelForm):
     class Meta:
@@ -40,4 +40,12 @@ class LoanForm(forms.ModelForm):
             'applied_on': forms.DateInput(attrs={'type': 'date'}),
             'wef_from': forms.DateInput(attrs={'type': 'date'}),
             'deduct_from': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class ClaimForm(forms.ModelForm):
+    class Meta:
+        model = Claim
+        fields = ['employee', 'ref_no', 'claim_code', 'claim_type', 'claim_date', 'grand_total']
+        widgets = {
+            'claim_date': forms.DateInput(attrs={'type': 'date'}),
         }

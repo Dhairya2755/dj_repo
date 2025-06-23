@@ -20,6 +20,7 @@ urlpatterns = [
     path('loan-history/', loan_history_view, name='loan_history'),
     path('my-acceptance/', my_acceptance_view, name='my_acceptance'),
     path('proof_status/', proof_status_view, name='proof_status'),
+    path('claims/', claims_view, name='claims_page'),
 
     ]
    

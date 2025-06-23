@@ -315,3 +315,15 @@ def proof_status_view(request):
         'inv_proofs': inv_proofs,
         'hra_proofs': hra_proofs,
     })
+
+
+#claim status
+def claims_view(request):
+    form = ClaimForm(request.POST or None)
+    claims = Claim.objects.select_related('employee').all()
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('claims_page')
+
+    return render(request, 'dashboard/claims_page.html', {'form': form, 'claims': claims})

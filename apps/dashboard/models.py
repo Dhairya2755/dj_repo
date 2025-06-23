@@ -208,3 +208,14 @@ class HRARentProofStatus(BaseClass):
 
     def __str__(self):
         return f"{self.employee.first_name} - Rent Proof"
+
+class Claim(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    ref_no = models.CharField(max_length=100)
+    claim_code = models.CharField(max_length=50)
+    claim_type = models.CharField(max_length=50)
+    claim_date = models.DateField()
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.ref_no} - {self.employee.first_name}"
