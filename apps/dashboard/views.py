@@ -301,5 +301,10 @@ def loan_history_view(request):
 
     return render(request, 'dashboard/loan_history.html', {'form': form, 'loans': loans})
 
+#acceptance
+
+def my_acceptance_view(request):
+    documents = DocumentAcceptance.objects.select_related('employee').all()
+    return render(request, 'dashboard/my_acceptance.html', {'documents': documents})
 
 

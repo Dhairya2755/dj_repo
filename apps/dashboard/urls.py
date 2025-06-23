@@ -17,7 +17,8 @@ urlpatterns = [
     path('family_info/', family_info, name='family_info'),
    #path('generate_slip/', generate_salary_view, name='generate__view'),
     # path('salary_slips/', salary_slip_view, name='salary_slip_view'),
-    path('loan-history/', loan_history_view, name='loan_history')
+    path('loan-history/', loan_history_view, name='loan_history'),
+    path('my-acceptance/', my_acceptance_view, name='my_acceptance'),
 
     ]
    

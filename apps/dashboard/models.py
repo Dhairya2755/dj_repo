@@ -168,3 +168,11 @@ class Loan(BaseClass):
 
     def __str__(self):
         return f"{self.loan_no} - {self.employee.first_name} {self.employee.last_name}"
+    
+class DocumentAcceptance(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    document_name = models.CharField(max_length=255)
+    status = models.CharField(max_length=50, choices=[('Accepted', 'Accepted'), ('Pending', 'Pending'), ('Rejected', 'Rejected')], default='Pending')
+
+    def __str__(self):
+        return f"{self.employee.first_name} - {self.document_name} ({self.status})"
