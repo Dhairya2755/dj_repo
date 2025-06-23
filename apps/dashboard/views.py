@@ -327,3 +327,8 @@ def claims_view(request):
         return redirect('claims_page')
 
     return render(request, 'dashboard/claims_page.html', {'form': form, 'claims': claims})
+
+#claim status
+def claim_status_view(request):
+    statuses = ClaimStatus.objects.select_related('employee').all()
+    return render(request, 'dashboard/claim_status.html', {'statuses': statuses})

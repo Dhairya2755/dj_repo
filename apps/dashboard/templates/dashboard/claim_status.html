@@ -1,0 +1,87 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+  <title>Claims Status</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:   linear-gradient(to right, #360033, #0b8793);
+      
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    h3 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead {
+      background-color: #66999f;
+      color: white;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .btn {
+      background-color: #d9534f;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+<br></br>
+<div class="card">
+  <h3>Claims Status</h3>
+  <button class="btn">Excel</button>
+  <table>
+    <thead>
+      <tr>
+        <th>RefNo</th>
+        <th>Description</th>
+        <th>BillNo</th>
+        <th>BillDate</th>
+        <th>Claimed</th>
+        <th>Approved</th>
+        <th>Rejected</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if statuses %}
+        {% for status in statuses %}
+        <tr>
+          <td>{{ status.ref_no }}</td>
+          <td>{{ status.description }}</td>
+          <td>{{ status.bill_no }}</td>
+          <td>{{ status.bill_date }}</td>
+          <td>{{ status.claimed_amount }}</td>
+          <td>{{ status.approved_amount }}</td>
+          <td>{{ status.rejected_amount }}</td>
+          <td>{{ status.remarks }}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr><td colspan="8">No data available in table</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

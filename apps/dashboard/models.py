@@ -219,3 +219,17 @@ class Claim(BaseClass):
 
     def __str__(self):
         return f"{self.ref_no} - {self.employee.first_name}"
+
+class ClaimStatus(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    ref_no = models.CharField(max_length=100)
+    description = models.TextField()
+    bill_no = models.CharField(max_length=100)
+    bill_date = models.DateField()
+    claimed_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    approved_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    rejected_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    remarks = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.ref_no} - {self.employee.first_name}"
