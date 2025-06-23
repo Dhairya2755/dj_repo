@@ -4,7 +4,11 @@ import uuid
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
+import random
+from datetime import date
+
+
 
 
 # Abstract base class with UUID + timestamps
@@ -64,7 +68,7 @@ class Employee(BaseClass):
         return f"{self.first_name} {self.last_name}"
 
 # Employee Profile photo (linked to Django auth user)
-class EmployeeProfile(models.Model):
+class EmployeeProfile(BaseClass):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='employee_photos/', default='default.jpg')
 
@@ -80,7 +84,7 @@ def create_employee_profile(sender, instance, created, **kwargs):
 
 
 
-class InductionFeedback(models.Model):
+class InductionFeedback(BaseClass):
     employee_id = models.CharField(max_length=10, unique=True, blank=True)
     first_name = models.CharField(max_length=255,null=False,blank=False)
     
@@ -104,7 +108,7 @@ class InductionFeedback(models.Model):
 
 
 
-class QualificationDetail(models.Model):
+class QualificationDetail(BaseClass):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     qualification_type = models.CharField(max_length=100)
     course_name = models.CharField(max_length=100)
@@ -120,7 +124,7 @@ class QualificationDetail(models.Model):
         return f"{self.employee.employee_id} - {self.course_name}"
 
 
-class FamilyMember(models.Model):
+class FamilyMember(BaseClass):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     dob = models.DateField()
@@ -136,3 +140,15 @@ class FamilyMember(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.employee.employee_id})"
+    
+import random
+
+def random_salary():
+    return random.randint(1000,20000)
+
+
+class EmployeeSalary(BaseClass):
+    employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    amount = models.DecimalField(decimal_places=2, default=25000+random_salary(), max_digits=10)
+
+   

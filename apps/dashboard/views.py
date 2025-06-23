@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import UserRegistration, Employee, EmployeeProfile , QualificationDetail
-
+from .models import UserRegistration, Employee, EmployeeProfile , QualificationDetail, EmployeeSalary
+from .models import EmployeeSalary
+from .utils import generate_salary_pdf
+from datetime import datetime
 
 import re
+import uuid
 from django.core.mail import send_mail
 
 # Validate strong password
@@ -224,7 +227,7 @@ def family_info(request):
             differently_abled=request.POST.get('differently_abled'),
             nominee=request.POST.get('nominee'),
         )
-        return redirect('index_inner')
+        return redirect('family_info')
 
     return render(request, 'dashboard/family_info.html', {
         'employee': employee,
@@ -246,3 +249,43 @@ def updategeneral(request):
 def policy_and_circular(request):
     return render(request, 'dashboard/policy_and_circular.html')
 
+# def generate_salary_slip(request):
+#     employee_id_ = request.session['employee_id']
+
+#     get_employee = get_object_or_404(Employee, id=employee_id_)
+#     get_employee_salary_detail = get_object_or_404(EmployeeSalary, employee_id=employee_id_)
+#     print(get_employee, get_employee_salary_detail)
+#     return redirect('index_inner')
+
+
+#salary slips
+def generate_salary_view(request):
+    employee_id_ = request.session.get('employee_id')
+    if not employee_id_:
+        return redirect('emplogin')
+    print(type(employee_id_))
+    employee = Employee.objects.get(id=uuid(employee_id_))
+    emp_s=EmployeeSalary.objects.get(id=uuid(employee_id_))
+    HRA=emp_s.salary*50/100
+    current_year = datetime.now().year
+    salary={
+        'name':employee.first_name+employee.last_name,
+        'email':'hi',
+        'mob':'hi',
+        'Salary':emp_s.salary,
+        'HRA':HRA,
+    }
+    # Autogenerate last 12 months
+    # for i in range(12):
+    #     month = (datetime.now().month - i - 1) % 12 + 1
+    #     year = current_year if datetime.now().month - i > 0 else current_year - 1
+
+    #     slip, {
+    #         employee=emp)loyee, month=month, year=year
+    #     }
+    # #     if created or not slip.pdf:
+    #         generate_salary_pdf(slip)
+
+    # slips = EmployeeSalary.objects.filter(employee=employee).order_by('-year', '-month')\
+
+    return render(request, 'dashboard/salary_slips.html',salary)

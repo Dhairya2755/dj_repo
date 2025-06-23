@@ -15,8 +15,9 @@ urlpatterns = [
     path('induction/',induction,name='induction'),
     path('qualification/', qualification_form, name='qualification'),
     path('family_info/', family_info, name='family_info'),
-
-
+   path('generate_slip/', generate_salary_view, name='generate_salary_view'),
+    # path('salary_slips/', salary_slip_view, name='salary_slip_view'),
+   
     ]
    
 
