@@ -156,7 +156,8 @@ def generalinfo(request):
 #qualification
 
 def qualification_form(request):
-    employee = Employee.objects.filter(employee_id='emp012').first()  # Use session or login in real case
+    employee_id = request.session.get('employee_id')
+    employee = Employee.objects.filter(employee_id=employee_id).first()  # Use session or login in real case
 
     if request.method == 'POST':
         QualificationDetail.objects.create(
@@ -171,7 +172,7 @@ def qualification_form(request):
             passing_year=request.POST.get('passing_year'),
             document=request.FILES.get('document')
         )
-        return redirect('index_inner')
+        return redirect('qualification_form.html')
 
     return render(request, 'dashboard/qualification_form.html', {'employee': employee})
 
