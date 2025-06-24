@@ -7,3 +7,5 @@ class DashboardConfig(AppConfig):
 def ready(self):
     import dashboard.helpers  # Replace `yourapp` with your actual app name
 
+def ready(self):
+    import apps.dashboard.signals

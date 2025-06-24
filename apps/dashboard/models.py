@@ -233,3 +233,28 @@ class ClaimStatus(BaseClass):
 
     def __str__(self):
         return f"{self.ref_no} - {self.employee.first_name}"
+
+
+class Salary(BaseClass):
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    basic_salary = models.DecimalField(max_digits=10, decimal_places=2, default=35000.00)
+    hra = models.DecimalField(max_digits=10, decimal_places=2, default=10500.00)
+    tax = models.DecimalField(max_digits=10, decimal_places=2, default=2500.00)
+    net_salary = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        self.net_salary = self.basic_salary + self.hra - self.tax
+        super().save(*args, **kwargs)
+
+
+class SalarySlip(BaseClass):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    month = models.CharField(max_length=20)  # e.g., 'June'
+    year = models.IntegerField()
+    pdf_file = models.FileField(upload_to='salary_slips/')
+
+    class Meta:
+        unique_together = ('employee', 'month', 'year')
+
+    def __str__(self):
+        return f"{self.employee.first_name} - {self.month} {self.year}"

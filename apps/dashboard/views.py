@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .utils import generate_salary_pdf
-from datetime import datetime
+from datetime import datetime  
 from .forms import *
-
 import re
 import uuid
 from django.core.mail import send_mail
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+from django.core.files.base import ContentFile
+from io import BytesIO
 
 # Validate strong password
 def validate_password(password):
@@ -333,3 +337,80 @@ def claims_view(request):
 def claim_status_view(request):
     statuses = ClaimStatus.objects.select_related('employee').all()
     return render(request, 'dashboard/claim_status.html', {'statuses': statuses})
+
+
+#finalise salary
+def salary_slip_list_view(request):
+    employee_id = request.session.get('employee_id')
+    if not employee_id:
+        return render(request, 'salary_slips.html', {
+            'slips': [],
+            'salary': None,
+            'error': 'No employee ID found in session.'
+        })
+
+    salary = Salary.objects.filter(employee__employee_id=employee_id).first()
+    slips = SalarySlip.objects.filter(employee__employee_id=employee_id).order_by('-year', '-month')
+    return render(request, 'dashboard/salary.html', {
+        'slips': slips,
+        'salary': salary,
+        'error': None if salary else 'No salary assigned yet.'
+        
+    })
+    
+    #automatic salary 
+  
+
+
+
+
+def generate_salary_slip_pdf(request):
+    employee_id = request.session.get('employee_id')
+    if not employee_id:
+        return HttpResponse("You are not logged in.")
+
+    try:
+        employee = Employee.objects.get(employee_id=employee_id)
+    except Employee.DoesNotExist:
+        return HttpResponse("Employee does not exist.")
+
+    salary, created = Salary.objects.get_or_create(
+        employee=employee,
+        defaults={
+            'basic_salary': 30000,
+            'hra': 10000,
+            'tax': 2000,
+        }
+    )
+    if created:
+        salary.save()
+
+    
+    month = datetime.now().strftime('%B')
+    year = datetime.now().year
+
+    if SalarySlip.objects.filter(employee=employee, month=month, year=year).exists():
+        return HttpResponse("Salary slip already generated for this month.")
+
+    context = {
+        'employee': employee,
+        'salary': salary,
+        'month': month,
+        'year': year,
+    }
+
+    template = get_template("dashboard/salary_slip_pdf.html")
+    html = template.render(context)
+
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    if not pdf.err:
+        slip = SalarySlip(
+            employee=employee,
+            month=month,
+            year=year
+        )
+        slip.pdf_file.save(f"{employee.employee_id}_{month}_{year}.pdf", ContentFile(result.getvalue()))
+        return HttpResponse("Salary slip generated successfully.")
+    return HttpResponse("PDF generation failed.")
+

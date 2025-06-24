@@ -45,7 +45,7 @@
             Download Centre
           </a>
 <ul class="dropdown-menu">
-<li><a class="dropdown-item" href="#">Salary Slips & Documentation</a></li>
+<li><a class="dropdown-item" href="{% url 'salary' %}">Salary Slips & Documentation</a></li>
 <li><a class="dropdown-item" href="{% url 'my_acceptance' %}">My Acceptance</a></li>
 </ul>
 </li>
@@ -99,7 +99,7 @@
         <h6>Quick Access</h6>
         <ul class="list-unstyled" style="font-size: 14px;">
           <li><a href="{% url 'claims_page' %}" class="text-white text-decoration-none">My Activities</a></li>
-          <li><a href="#" class="text-white text-decoration-none">Download Centre</a></li>
+          <li><a href="{% url 'salary' %}" class="text-white text-decoration-none">Download Centre</a></li>
           <li><a href="{% url 'generalinfo' %}" class="text-white text-decoration-none">My Joining</a></li>
           <li><a href="{% url 'policy_and_circular' %}" class="text-white text-decoration-none">Policies & Circulars</a></li>
           

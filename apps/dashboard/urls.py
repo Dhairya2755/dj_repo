@@ -22,6 +22,8 @@ urlpatterns = [
     path('proof_status/', proof_status_view, name='proof_status'),
     path('claims/', claims_view, name='claims_page'),
     path('claim-status/', claim_status_view, name='claim_status'), 
+    path('salary/', salary_slip_list_view, name='salary'),
+    path('generate-slip/', generate_salary_slip_pdf, name='generate_salary_slip'),
 
 
     ]

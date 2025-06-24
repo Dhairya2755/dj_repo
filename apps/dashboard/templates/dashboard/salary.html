@@ -1,0 +1,132 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block body %}
+
+  <title>Salary Slips</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:linear-gradient(to right, #360033, #0b8793);
+      
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: #dceef5;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #a9d3e9;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    thead {
+      background: #66999f;
+      color: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    .btn {
+      background-color: #e2654c;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #d04a36;
+    }
+  </style>
+
+<body>
+
+<h2>Salary Slips & Documents</h2>
+
+
+
+<!-- Salary Summary -->
+<p><strong>Basic Salary:</strong> ₹{{ salary.basic_salary }} |<p> 
+<p><strong>HRA:</strong> ₹{{ salary.hra }} | </p>
+<p><strong>Tax:</strong> ₹{{ salary.tax }} | </p>
+<p><strong>Net:</strong> ₹{{ salary.net_salary }}</p>
+<style>
+    h2{
+        margin-top: 5%;
+        color: white;
+        text-align: center;
+    }
+    p{
+        color:white;
+    }
+    td {
+  color: white;  
+}
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Month - Year</th>
+      <th>View</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if slips %}
+      {% for slip in slips %}
+      <tr>
+        <td>{{ slip.month }} - {{ slip.year }}</td>
+        <td><a href="{{ slip.pdf_file.url }}" target="_blank"><button class="btn">📄</button></a></td>
+        <td><a href="{{ slip.pdf_file.url }}" download><button class="btn">⬇</button></a></td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr><td colspan="3">No slips available</td></tr>
+    {% endif %}
+  </tbody>
+  {% if error %}
+  <p style="color: red;"><strong>{{ error }}</strong></p>
+{% endif %}
+
+{% if salary %}
+  <p><strong>Basic:</strong> ₹{{ salary.basic_salary }} | ...</p>
+{% else %}
+  <p>No salary info available.</p>
+{% endif %}
+<form action="{% url 'generate_salary_slip' %}" method="post">
+  {% csrf_token %}
+  <button type="submit" style="
+  background-color: #007bff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+">
+  Generate Current Month Slip
+</button>
+</form>
+</table>
+
+</body>
+</html>
+
+{% endblock %}
