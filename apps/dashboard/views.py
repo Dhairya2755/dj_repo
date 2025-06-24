@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .utils import generate_salary_pdf
-from datetime import datetime  
+from datetime import datetime  , timedelta 
 from .forms import *
 import re
 import uuid
@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.core.files.base import ContentFile
 from io import BytesIO
+from django.utils import timezone
+
 
 # Validate strong password
 def validate_password(password):
@@ -62,6 +64,7 @@ def employeelogin(request):
         password = request.POST.get('password')
 
         employee = Employee.objects.filter(employee_id=employee_id, password=password).first()
+        request.session['start_time'] = timezone.now().timestamp()
         if employee:
             # Store in session
             request.session['employee_id'] = employee.employee_id
@@ -414,3 +417,38 @@ def generate_salary_slip_pdf(request):
         return HttpResponse("Salary slip generated successfully.")
     return HttpResponse("PDF generation failed.")
 
+#bday countdown
+def dashboard_highlights(request):
+    today = date.today()
+    upcoming = today + timedelta(days=7)  # show next 7 days
+
+    # Birthdays this week (month/day match only)
+    birthdays = Employee.objects.filter(
+        date_of_birth__month__gte=today.month,
+        date_of_birth__day__gte=today.day,
+        date_of_birth__month__lte=upcoming.month,
+        date_of_birth__day__lte=upcoming.day
+    )
+    return render(request, 'dashboard/index_inner.html', {
+        'birthdays': birthdays,
+    })
+
+
+#bday reminder
+def send_birthday_emails():
+    today = date.today()
+    celebrants = Employee.objects.filter(
+        date_of_birth__month=today.month,
+        date_of_birth__day=today.day
+    )
+
+    for emp in celebrants:
+        send_mail(
+            "Happy Birthday 🎂",
+            f"Dear {emp.first_name},\n\nWishing you a very happy birthday!\n\n— Team",
+            None,
+            [emp.pvt_email],
+        )
+
+ 
+    

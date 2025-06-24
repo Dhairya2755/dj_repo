@@ -135,3 +135,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'technovadesk@gmail.com'
 EMAIL_HOST_PASSWORD = 'ofua ancn vtmj irgc'  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# Session timeout settings
+SESSION_COOKIE_AGE = 900  # 15 minutes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True

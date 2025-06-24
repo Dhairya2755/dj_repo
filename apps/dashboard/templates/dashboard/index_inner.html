@@ -14,7 +14,8 @@
     html, body {
       height: 100%;
       margin: 0;
-      background:   linear-gradient(to right, #360033, #0b8793);
+     background: linear-gradient(to right, #2c3e50, #4ca1af);
+
     }
   </style>
 <body>
@@ -84,14 +85,51 @@
         </li>
 
       
-     <div class="d-flex align-items-center ms-auto">
-        {% if request.session.employee_name %}
-          <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
-        {% endif %}
- 
+<div class="d-flex align-items-center ms-auto">
+  {% if request.session.employee_name %}
+    <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
+  {% endif %}
 
-        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-      </div>
+  <!-- Timer Display -->
+  <span id="session-timer" class="me-3 text-muted small fw-semibold"></span>
+
+  <!-- Logout Button -->
+  <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+</div>
+
+{% if request.session.start_time %}
+<script>
+  const REDIRECT_URL = "{% url 'emplogin' %}";
+  const SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
+
+  // Use string to avoid JS syntax error, then convert to number
+  const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
+  const currentTime = Date.now();
+  const elapsed = currentTime - sessionStart;
+  let remainingTime = SESSION_DURATION - elapsed;
+
+  const timerDisplay = document.getElementById("session-timer");
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(remainingTime / 1000 / 60);
+    const seconds = Math.floor((remainingTime / 1000) % 60);
+    timerDisplay.textContent = `Your Current Session Will Expire in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+
+  const countdownInterval = setInterval(() => {
+    remainingTime -= 1000;
+    updateTimerDisplay();
+    if (remainingTime <= 0) {
+      clearInterval(countdownInterval);
+      alert("Session expired. Redirecting...");
+      window.location.href = REDIRECT_URL;
+    }
+  }, 1000);
+
+  updateTimerDisplay();
+</script>
+{% endif %}
+
     </div>
   </div>
 </nav>
@@ -134,7 +172,17 @@
         color: #333;
     }
 </style>
+<!--bday-->
+<h4 style="color: white;">🎂 Upcoming Birthdays</h4>
+<ul>
+  {% for emp in birthdays %}
+    <li style="color:white;">{{ emp.first_name }} {{ emp.last_name }} – {{ emp.date_of_birth|date:"d M" }}</li>
+  {% empty %}
+    <li style="color:white;">No upcoming birthdays.</li>
+  {% endfor %}
+</ul>
 
+<!--bday-->
 <div class="container-fluid mt-3 px-4">
     <div class="row g-3">
         <!-- My Profile -->
@@ -204,7 +252,8 @@
                     </div>
                     <div class="d-flex justify-content-center gap-3">
                         
-                        <button class="btn btn-info text-white">Salary Slips</button>
+                       <a href="{% url 'salary' %}" class="btn btn-info text-white">Salary Slips</a>
+
                     </div>
                 </div>
             </div>
@@ -229,7 +278,7 @@
 </div>
 {% endblock %}
 
-<footer class="mt-4" style="background: linear-gradient(to right, #360033, #0b8793); color: white; ">
+<footer class="mt-4" style="background: linear-gradient(to right, #2c3e50, #4ca1af); color: white; ">
   <div class="container text-center">
     <div class="row">
       <div class="col-md-4 mb-3">
