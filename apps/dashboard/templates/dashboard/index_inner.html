@@ -15,21 +15,38 @@
     html, body {
       height: 100%;
       margin: 0;
-     background: linear-gradient(to right, #2c3e50, #4ca1af);
-
+     /* background: linear-gradient(to right, #2c3e50, #4ca1af); */
+      background: #ffffff;
     }
   </style>
 <body>
   
+<style>
+  .navbar-cyan {
+    background-color: #0B1D51;
 
+  }
+  .navbar-cyan .nav-link,
+  .navbar-cyan .navbar-brand {
+    color: #ffffff !important;
+  }
+  .navbar-cyan .dropdown {
+    color: black !important;
+  }
+  .navbar-cyan .dropdown-item {
+    color: black;
+  }
+</style>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-cyan">
+
     
   <div class="container-fluid">
-    <img src="/media/logo.jpg" 
+   <img src="/media/logo2.png" 
      alt="Login Banner"
-     style="display: block; margin: 0 auto -10px auto; width: 50px; height: 50px; object-fit: contain;">
-    <a class="navbar-brand" href="#">TECHNOVA</a>
+     style="height: 40px; width: auto; object-fit: contain; vertical-align: middle; margin-right: 10px;">
+
+    <a class="navbar-brand" href="{% url 'index_inner' %}">TECHNOVA</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -91,22 +108,27 @@
       
 <div class="d-flex align-items-center ms-auto">
   {% if request.session.employee_name %}
-    <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
+    <span class="me-3 text-light fw-bold">Welcome, {{ request.session.employee_name }}</span>
   {% endif %}
 
   <!-- Timer Display -->
-  <span id="session-timer" class="me-3 text-muted small fw-semibold"></span>
+<span id="session-timer" style="color: white; font-weight: 600; margin-right: 20px;" class="small fw-semibold"></span>
+
 
   <!-- Logout Button -->
   <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
 </div>
 
+
+
 {% if request.session.start_time %}
+
+<!-- Timer Display with Forced White Text -->
+
 <script>
   const REDIRECT_URL = "{% url 'emplogin' %}";
   const SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
 
-  // Use string to avoid JS syntax error, then convert to number
   const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
   const currentTime = Date.now();
   const elapsed = currentTime - sessionStart;
@@ -132,6 +154,7 @@
 
   updateTimerDisplay();
 </script>
+
 {% endif %}
 
     </div>
@@ -147,8 +170,9 @@
 
 {% block content %}
 <style>
+  
     body {
-        background-color: #f4f7f9;
+        background-color: #ffffff;
         font-family: 'Segoe UI', sans-serif;
     }
 
@@ -158,13 +182,13 @@
     }
 
     .card-header {
-        background-color: #77b8c7;
-        color: white;
+        background-color: #0B1D51;
+        color: #ffffff;
         font-weight: bold;
     }
 
     .progress-bar {
-        background-color: #b1d8e3;
+        background-color: #0B1D51;
     }
 
     .label-title {
@@ -177,12 +201,12 @@
     }
 </style>
 <!--bday-->
-<h4 style="color: white;">🎂 Upcoming Birthdays</h4>
+<h4 style="color: black;">🎂 Upcoming Birthdays</h4>
 <ul>
   {% for emp in birthdays %}
-    <li style="color:white;">{{ emp.first_name }} {{ emp.last_name }} – {{ emp.date_of_birth|date:"d M" }}</li>
+    <li style="color:black;">{{ emp.first_name }} {{ emp.last_name }} – {{ emp.date_of_birth|date:"d M" }}</li>
   {% empty %}
-    <li style="color:white;">No upcoming birthdays.</li>
+    <li style="color:black;">No upcoming birthdays.</li>
   {% endfor %}
 </ul>
 
@@ -192,7 +216,7 @@
         <!-- My Profile -->
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">MY PROFILE  <a href="{% url 'edit_profile' %}" class="btn btn-outline-dark me-2">Edit Profile</a></div>
+                <div class="card-header">MY PROFILE  <a href="{% url 'edit_profile' %}" class="btn btn-success text-white me-2">Edit Profile</a></div>
                 <div class="card-body">
                     <label class="d-block mb-2">100% Profile Completed</label>
                     <div class="progress mb-3" style="height: 8px;">
@@ -239,6 +263,7 @@
         </div>
 
         <!-- Payroll & Slips -->
+        </style>
         <div class="col-md-8">
             <div class="card mb-3">
                 <div class="card-header">MY PAYROLL</div>
@@ -255,8 +280,18 @@
                         {% endfor %}
                     </div>
                     <div class="d-flex justify-content-center gap-3">
-                        
-                       <a href="{% url 'salary' %}" class="btn btn-info text-white">Salary Slips</a>
+<style>
+  .btn-info.text-dark-custom {
+    color: #2c3e50 !important;
+  }
+  .btn-info.text-dark-custom:hover {
+    color: #1a252f !important;
+  }
+</style>
+
+<a href="{% url 'salary' %}" class="btn btn-success text-white me-2">Salary Slips</a>
+
+
 
                     </div>
                 </div>
@@ -287,7 +322,7 @@
 </div>
 {% endblock %}
 
-<footer class="mt-4" style="background: linear-gradient(to right, #2c3e50, #4ca1af); color: white; ">
+<footer class="mt-4" style="background: white; color: black; ">
   <div class="container text-center">
     <div class="row">
       <div class="col-md-4 mb-3">
@@ -296,11 +331,12 @@
       </div>
       <div class="col-md-4 mb-3">
         <h6>Quick Access</h6>
+        <style></style>
         <ul class="list-unstyled" style="font-size: 14px;">
-          <li><a href="{% url 'claims_page' %}" class="text-white text-decoration-none">My Activities</a></li>
-          <li><a href="{% url 'salary' %}" class="text-white text-decoration-none">Download Centre</a></li>
-          <li><a href="{% url 'generalinfo' %}" class="text-white text-decoration-none">My Joining</a></li>
-          <li><a href="{% url 'policy_and_circular' %}" class="text-white text-decoration-none">Policies & Circulars</a></li>
+          <li><a href="{% url 'claims_page' %}" class="text-black text-decoration-none">My Activities</a></li>
+          <li><a href="{% url 'salary' %}" class="text-black text-decoration-none">Download Centre</a></li>
+          <li><a href="{% url 'generalinfo' %}" class="text-black text-decoration-none">My Joining</a></li>
+          <li><a href="{% url 'policy_and_circular' %}" class="text-black text-decoration-none">Policies & Circulars</a></li>
           
         </ul>
       </div>
@@ -314,9 +350,6 @@
     <hr class="border-light">
     <div style="font-size: 13px;">&copy; {{ current_year }} TechNova Inc. | All rights reserved.</div>
   </div>
-<div id="top">
-        <a href="index"><i class="fa fa-chevron-circle-up"></i></a>
-    </div>
 </footer>
 
 </body>

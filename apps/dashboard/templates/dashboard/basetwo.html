@@ -14,86 +14,120 @@
     html, body {
       height: 100%;
       margin: 0;
-      background: linear-gradient(to right, #2c3e50, #4ca1af);
+     /* background: linear-gradient(to right, #2c3e50, #4ca1af); */
+      background: #ffffff;
     }
   </style>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-<div class="container-fluid">
-   <img src="/media/logo.jpg" 
+  
+<style>
+  .navbar-cyan {
+    background-color: #0B1D51;
+
+  }
+  .navbar-cyan .nav-link,
+  .navbar-cyan .navbar-brand {
+    color: #ffffff !important;
+  }
+  .navbar-cyan .dropdown {
+    color: black !important;
+  }
+  .navbar-cyan .dropdown-item {
+    color: black;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-cyan">
+
+    
+  <div class="container-fluid">
+    <img src="/media/logo2.png" 
      alt="Login Banner"
-     style="display: block; margin: 0 auto -10px auto; width: 50px; height: 50px; object-fit: contain;">
-<a class="navbar-brand" href="{% url 'index_inner' %}">TECHNOVA</a>
-<button aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarScroll" data-bs-toggle="collapse" type="button">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarScroll">
-<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-<!-- My Activities Dropdown -->
-<li class="nav-item dropdown">
-<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+     style="height: 40px; width: auto; object-fit: contain; vertical-align: middle; margin-right: 10px;">
+
+    <a class="navbar-brand" href="{% url 'index_inner' %}">TECHNOVA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+        <!-- My Activities Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             My Activities
           </a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="{% url 'claims_page' %}">Claims</a></li>
-<li><a class="dropdown-item" href="{% url 'claim_status' %}">Claims Status</a></li>
-<li><a class="dropdown-item" href="{% url 'proof_status' %}">Proof Status</a></li>
-<li><hr class="dropdown-divider"/></li>
-<li><a class="dropdown-item" href="{% url 'loan_history' %}">Apply Loans</a></li>
-</ul>
-</li>
-<!-- Download Centre Dropdown -->
-<li class="nav-item dropdown">
-<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'claims_page' %}">Claims</a></li>
+            <li><a class="dropdown-item" href="{% url 'claim_status' %}">Claims Status</a></li>
+            <li><a class="dropdown-item" href="{% url 'proof_status' %}">Proof Status</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'loan_history' %}">Apply Loans</a></li>
+          </ul>
+        </li>
+
+        <!-- Download Centre Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Download Centre
           </a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="{% url 'salary' %}">Salary Slips & Documentation</a></li>
-<li><a class="dropdown-item" href="{% url 'my_acceptance' %}">My Acceptance</a></li>
-<li><a class="dropdown-item" href="{% url 'apply_leave' %}">My Leave</a></li>
-</ul>
-</li>
-<!-- My Joining Dropdown -->
-<li class="nav-item dropdown">
-<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'salary' %}">Salary Slips & Documentation</a></li>
+            <li><a class="dropdown-item" href="{% url 'my_acceptance' %}">My Acceptance</a></li>
+            <li><a class="dropdown-item" href="{% url 'apply_leave' %}">My Leave</a></li>
+          </ul>
+        </li>
+
+        <!-- My Joining Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             My Joining
           </a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="{% url 'generalinfo' %}">General Information</a></li>
-<li><a class="dropdown-item" href="{% url 'qualification' %}">Qualification</a></li>
-<li><a class="dropdown-item" href="{% url 'induction' %}">Induction Feedback</a></li>
-<li><a class="dropdown-item" href="{% url 'family_info' %}">Mediclaim Details</a></li>
-<li><a class="dropdown-item" href="{% url 'updategeneral' %}">General Information Update</a></li>
-</ul>
-</li>
-<!-- policies & circulars Dropdown -->
-<li class="nav-item dropdown">
-<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-            Policies &amp; Circulars 
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'generalinfo' %}">General Information</a></li>
+            <li><a class="dropdown-item" href="{% url 'qualification' %}">Qualification</a></li>
+            <li><a class="dropdown-item" href="{% url 'induction' %}">Induction Feedback</a></li>
+            <li><a class="dropdown-item" href="{% url 'family_info' %}">Mediclaim Details</a></li>
+            <li><a class="dropdown-item" href="{% url 'updategeneral' %}">General Information Update</a></li>
+          </ul>
+        </li>
+
+        <!-- policies & circulars Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Policies & Circulars 
           </a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="{% url 'policy_and_circular' %}">Policies &amp; Circulars</a></li>
-</ul>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'policy_and_circular' %}">Policies & Circulars</a>
 </li>
-<!-- Search Form -->
+          </ul>
+        </li>
+
+      
 <div class="d-flex align-items-center ms-auto">
   {% if request.session.employee_name %}
-    <span class="me-3 text-black fw-bold">Welcome, {{ request.session.employee_name }}</span>
+    <span class="me-3 text-light fw-bold">Welcome, {{ request.session.employee_name }}</span>
   {% endif %}
 
   <!-- Timer Display -->
-  <span id="session-timer" class="me-3 text-muted small fw-semibold"></span>
+<span id="session-timer" style="color: white; font-weight: 600; margin-right: 20px;" class="small fw-semibold"></span>
+
 
   <!-- Logout Button -->
   <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
 </div>
 
+
+
 {% if request.session.start_time %}
+
+<!-- Timer Display with Forced White Text -->
+
 <script>
   const REDIRECT_URL = "{% url 'emplogin' %}";
   const SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
 
-  // Use string to avoid JS syntax error, then convert to number
   const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
   const currentTime = Date.now();
   const elapsed = currentTime - sessionStart;
@@ -119,16 +153,23 @@
 
   updateTimerDisplay();
 </script>
+
 {% endif %}
-</div>
-</div>
+
+    </div>
+  </div>
 </nav>
+
+
+    </div>
+  </div>
+</nav>
+<BR></BR>
 
 {% block body %}
 {% endblock %}
 
-
-<footer class="mt-4" style="background: linear-gradient(to right, #2c3e50, #4ca1af); color: black; ">
+<footer class="mt-4" style="background: white; color: black; ">
   <div class="container text-center">
     <div class="row">
       <div class="col-md-4 mb-3">
@@ -138,22 +179,23 @@
       <div class="col-md-4 mb-3">
         <h6>Quick Access</h6>
         <ul class="list-unstyled" style="font-size: 14px;">
-          <li><a href="{% url 'claims_page' %}" class="text-black text-decoration-none">My Activities</a></li>
-          <li><a href="{% url 'salary' %}" class="text-black text-decoration-none">Download Centre</a></li>
-          <li><a href="{% url 'generalinfo' %}" class="text-black text-decoration-none">My Joining</a></li>
-          <li><a href="{% url 'policy_and_circular' %}" class="text-black text-decoration-none">Policies & Circulars</a></li>
+          <li><a href="{% url 'claims_page' %}" class="text-dark text-decoration-none">My Activities</a></li>
+          <li><a href="{% url 'salary' %}" class="text-dark text-decoration-none">Download Centre</a></li>
+          <li><a href="{% url 'generalinfo' %}" class="text-dark text-decoration-none">My Joining</a></li>
+          <li><a href="{% url 'policy_and_circular' %}" class="text-dark text-decoration-none">Policies & Circulars</a></li>
           
-</div>
-<div class="col-md-4 mb-3">
-<h3>NEWSLETTER</h3>
-<p>Subscribe For Latest Updates</p>
-<input class="email" placeholder="your email" type="email"/>
-<input class="btn-btn-danger" type="submit" value="Subscribe"/>
-</div>
-</div>
-<hr class="border-light"/>
-<div style="font-size: 13px;text-align: center;">© {{ current_year }} TechNova Inc. | All rights reserved.</div>
-</div>
+        </ul>
+      </div>
+      
+    <div class="col-md-4 mb-3">
+                <h3>NEWSLETTER</h3>
+                <P>Subscribe For Latest Updates</P>
+                <input type="email" placeholder="your email" class="email">
+                <input type="submit" value="Subscribe" class="btn-btn-danger">
+        </div>
+    <hr class="border-light">
+    <div style="font-size: 13px;">&copy; {{ current_year }} TechNova Inc. | All rights reserved.</div>
+  </div>
 </footer>
 </body>
 </html>

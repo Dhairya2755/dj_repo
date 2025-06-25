@@ -4,7 +4,8 @@ p class="text-center mb-4">
 {% block body %}
 <style>
     body {
-        background-color: #f4f7f9;
+        color: black;
+        background-color: #ffffff;
         font-family: 'Segoe UI', sans-serif;
     }
 
@@ -16,7 +17,7 @@ p class="text-center mb-4">
     }
 
     .card-header {
-        background-color: #77b8c7;
+        background-color: #0b1d51;
         color: white;
         font-weight: bold;
     }
@@ -49,10 +50,10 @@ p class="text-center mb-4">
     <div class="card">
         <style>
             h2{
-                 color: white;   
+                 color: black;   
             }
             p{
-                color: white;
+                color: black;
             }
         </style>
         <div class="card-header">MY PROFILE</div>
@@ -70,7 +71,8 @@ p class="text-center mb-4">
                     <tr><th>Location:</th><td>{{ employee.location }}</td></tr>
                 </tbody>
             </table>
-            <a href="{% url 'edit_profile' %}" class="btn btn-outline-dark me-2">Edit Profile</a>
+    <a href="{% url 'edit_profile' %}" class="btn btn-success text-white me-2">Edit Profile</a>
+
         </div>
     </div>
 </div>

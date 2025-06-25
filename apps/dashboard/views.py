@@ -179,7 +179,7 @@ def qualification_form(request):
             passing_year=request.POST.get('passing_year'),
             document=request.FILES.get('document')
         )
-        return redirect('qualification_form.html')
+        return redirect('index_inner')
 
     return render(request, 'dashboard/qualification_form.html', {'employee': employee})
 
