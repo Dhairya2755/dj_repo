@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- {% for slip in slips %}
+          {% for slip in slips %}
           <tr>
             <td>{{ slip.month|stringformat:"02d" }} - {{ slip.year }}</td>
             <td>
@@ -45,7 +45,7 @@
           </tr>
           {% empty %}
           <tr><td colspan="3" class="text-center">No slips available.</td></tr>
-          {% endfor %} -->
+          {% endfor %}
           {% if salary %}
           <tr>
             <td>{{salary.name}}</td>

@@ -258,3 +258,26 @@ class SalarySlip(BaseClass):
 
     def __str__(self):
         return f"{self.employee.first_name} - {self.month} {self.year}"
+
+#leave management
+class Leave(BaseClass):
+    LEAVE_TYPES = [
+        ('SL', 'Sick Leave'),
+        ('CL', 'Casual Leave'),
+        ('EL', 'Earned Leave'),
+    ]
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Rejected', 'Rejected'),
+    ]
+
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    leave_type = models.CharField(max_length=2, choices=LEAVE_TYPES)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    reason = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+
+    def __str__(self):
+        return f"{self.employee} - {self.leave_type} ({self.status})"

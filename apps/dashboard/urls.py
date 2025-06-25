@@ -24,9 +24,9 @@ urlpatterns = [
     path('claim-status/', claim_status_view, name='claim_status'), 
     path('salary/', salary_slip_list_view, name='salary'),
     path('generate-slip/', generate_salary_slip_pdf, name='generate_salary_slip'),
-
-
-    ]
+    path('apply-leave/', leave_apply_view, name='apply_leave'),
+    path('leave-history/', leave_history_view, name='leave_history'),
+ ]
    
 
     # path('outer/',index_outer,name='index_outer.html'),

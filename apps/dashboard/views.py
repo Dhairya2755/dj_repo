@@ -445,10 +445,36 @@ def send_birthday_emails():
     for emp in celebrants:
         send_mail(
             "Happy Birthday 🎂",
-            f"Dear {emp.first_name},\n\nWishing you a very happy birthday!\n\n— Team",
+            f"Dear {Employee.first_name},\n\nWishing you a very happy birthday!\n\n— Team",
             None,
-            [emp.pvt_email],
+            [Employee.pvt_email],
         )
+#leave mgmt
+def leave_apply_view(request):
+    employee_id = request.session.get('employee_id')
+    employee = get_object_or_404(Employee, employee_id=employee_id)
 
- 
-    
+    if request.method == 'POST':
+        leave_type = request.POST.get('leave_type')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        reason = request.POST.get('reason')
+
+        Leave.objects.create(
+            employee=employee,
+            leave_type=leave_type,
+            start_date=start_date,
+            end_date=end_date,
+            reason=reason
+        )
+        return redirect('leave_history')
+
+    return render(request, 'dashboard/leave_apply.html', {'employee': employee})
+
+
+def leave_history_view(request):
+    employee_id = request.session.get('employee_id')
+    employee = get_object_or_404(Employee, employee_id=employee_id)
+
+    leaves = Leave.objects.filter(employee=employee).order_by('-start_date')
+    return render(request, 'dashboard/leave_history.html', {'employee': employee, 'leaves': leaves})    
