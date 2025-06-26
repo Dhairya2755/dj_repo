@@ -313,7 +313,80 @@
       {% endfor %}
     </ul>
     <div class="row g-3">
-      <!-- My Profile -->
+
+      <div class="container mt-5">
+  <div class="row g-4 justify-content-center">
+
+   
+
+    <!-- Total Employees Card -->
+    <div class="col-md-4">
+      <div class="card text-white" style="background-color: #ffc107;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Total Employees</h5>
+          <h2 class="fw-bold">{{ total_employees }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Salary Slip Card -->
+    <div class="col-md-4">
+      <div class="card text-white" style="background-color: #dc3545;">
+        <div class="card-body text-center">
+          <h5 class="card-title">My Payroll</h5>
+          {% if salary_slips %}
+            {% for slip in salary_slips %}
+              <p class="mb-1">{{ slip.month }} {{ slip.year }}</p>
+              <div class="btn-group mb-2">
+                <a href="{{ slip.pdf_file.url }}" target="_blank" class="btn btn-light btn-sm">View</a>
+                <a href="{{ slip.pdf_file.url }}" download class="btn btn-dark btn-sm">Download</a>
+              </div><br>
+            {% endfor %}
+          {% else %}
+            <p>No slips available</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Mediclaim Info -->
+    <div class="col-md-4">
+      <div class="card text-white" style="background-color: #28a745;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Mediclaim Details</h5>
+          {% if family_members %}
+            <table class="table table-sm table-borderless text-white">
+              <thead>
+                <tr><th>Name</th><th>Age</th><th>Relation</th></tr>
+              </thead>
+              <tbody>
+                {% for member in family_members %}
+                <tr>
+                  <td>{{ member.name }}</td>
+                  <td>{{ member.age }}</td>
+                  <td>{{ member.relation }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>No Mediclaim Info</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      <!-- My Profile
       <div class="col-md-4">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
@@ -366,10 +439,10 @@
             </table>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Payroll & Slips -->
-      </style>
+      <!-- </style>
       <div class="col-md-8">
         <div class="card mb-3">
           <div class="card-header">MY PAYROLL</div>
@@ -404,7 +477,7 @@
 
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Let's Get Social -->
         <div class="card">

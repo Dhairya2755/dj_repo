@@ -75,13 +75,24 @@ def employeelogin(request):
     return render(request, 'dashboard/emplogin.html')
 
 #  Dashboard home page
+
 def index_inner(request):
     employee_id = request.session.get('employee_id')
     if not employee_id:
         return redirect('emplogin')
 
     employee = get_object_or_404(Employee, employee_id=employee_id)
-    return render(request, 'dashboard/index_inner.html', {'employee': employee})
+    total_employees = Employee.objects.count()
+    salary_slips = SalarySlip.objects.filter(employee=employee).order_by('-year', '-month')[:3]
+    family_members = FamilyMember.objects.filter(employee=employee)
+
+    return render(request, 'dashboard/index_inner.html', {
+        'employee': employee,
+        'total_employees': total_employees,
+        'salary_slips': salary_slips,
+        'family_members': family_members
+    })
+
 
 #  Logout
 def logout(request):
