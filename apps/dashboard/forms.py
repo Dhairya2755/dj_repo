@@ -49,3 +49,8 @@ class ClaimForm(forms.ModelForm):
         widgets = {
             'claim_date': forms.DateInput(attrs={'type': 'date'}),
         }
+
+class EmployeeGeneralInfoForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['first_name', 'last_name', 'pvt_email', 'mobile', 'location']  # Editable fields only

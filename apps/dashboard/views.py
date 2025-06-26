@@ -245,13 +245,21 @@ def family_info(request):
 
 #general information update
 def updategeneral(request):
-    employee_id_ = request.session.get('employee_id')
-    empl = Employee.objects.get(employee_id = employee_id_)
-    context1 = {
-        'employee': empl
-    }
+    employee_id = request.session.get('employee_id')
+    employee = get_object_or_404(Employee, employee_id=employee_id)
 
-    return render(request, 'dashboard/geninfoupdate.html',context1)
+    if request.method == 'POST':
+        form = EmployeeGeneralInfoForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('generalinfo')  # or any page you like
+    else:
+        form = EmployeeGeneralInfoForm(instance=employee)
+
+    return render(request, 'dashboard/geninfoupdate.html', {
+        'form': form,
+        'employee': employee  # to display non-editable fields
+    })
 
 #policy circular
 def policy_and_circular(request):
@@ -478,3 +486,16 @@ def leave_history_view(request):
 
     leaves = Leave.objects.filter(employee=employee).order_by('-start_date')
     return render(request, 'dashboard/leave_history.html', {'employee': employee, 'leaves': leaves})    
+
+
+#navbar
+def index_inner(request):
+    employee_id = request.session.get('employee_id')
+    if not employee_id:
+        return redirect('emplogin')
+    
+    employee = get_object_or_404(Employee, employee_id=employee_id)
+    return render(request, 'dashboard/index_inner.html', {'employee': employee})
+
+
+

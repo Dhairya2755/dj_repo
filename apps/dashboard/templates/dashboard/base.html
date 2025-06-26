@@ -11,6 +11,9 @@
   <script crossorigin="anonymous" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 </head>
 <style>
@@ -110,21 +113,29 @@
               <li><a class="dropdown-item" href="{% url 'policy_and_circular' %}">Policies & Circulars</a></li>
             </ul>
           </li>
-
-
-          <div class="d-flex align-items-center ms-auto">
+<div class="d-flex align-items-center ms-auto">
             {% if request.session.employee_name %}
             <span class="me-3 text-light fw-bold">Welcome, {{ request.session.employee_name }}</span>
             {% endif %}
-
             <!-- Timer Display -->
             <span id="session-timer" style="color: white; font-weight: 600; margin-right: 20px;"
               class="small fw-semibold"></span>
 
-            <!-- Logout Button -->
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-          </div>
-
+                <!-- In your navbar -->
+<div class="dropdown d-flex align-items-center ms-auto">
+  <button class="btn dropdown-toggle d-flex align-items-center justify-content-center"
+          type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false"
+          style="background-color: transparent; border: 1px solid #ffffff70; padding: 6px 10px; border-radius: 8px;">
+    <i class="bi bi-person-circle" style="font-size: 22px; color: white;"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+    <li><h6 class="dropdown-header">{{ request.session.employee_name }}</h6></li>
+    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">📝 My Profile Update</a></li>
+    <li><a class="dropdown-item" href="{% url 'salary' %}">💰 My Payroll</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🚪 Logout</a></li>
+  </ul>
+</div>
           {% if request.session.start_time %}
           <script>
             const REDIRECT_URL = "{% url 'emplogin' %}";

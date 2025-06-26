@@ -128,9 +128,19 @@
               class="small fw-semibold"></span>
 
 
-            <!-- Logout Button -->
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-          </div>
+         <!-- In your navbar -->
+<div class="dropdown ms-3">
+  <button class="btn btn-light dropdown-toggle d-flex align-items-center" style="background-color: #2c3e50;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; border-radius: 8px;">
+    <i class="bi bi-person-circle" style="font-size: 22px; color: white; "></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+    <li><h6 class="dropdown-header">{{ request.session.employee_name }}</h6></li>
+    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">📝 My Profile Update</a></li>
+    <li><a class="dropdown-item" href="{% url 'salary' %}">💰 My Payroll</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🚪 Logout</a></li>
+  </ul>
+</div>
 
 
 
@@ -262,7 +272,7 @@
   {% block content %}
   <style>
     body {
-      background-color: #f7f9fc;
+      background-color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
     }
 
@@ -446,7 +456,7 @@
   </div>
   {% endblock %}
 
-  <footer class="mt-4" style="background: #f7f9fc; color: black; ">
+  <footer class="mt-4" style="background: #ffffff; color: black; ">
     <div class="container text-center">
       <div class="row">
         <div class="col-md-4 mb-3">
