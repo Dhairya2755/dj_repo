@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Employee Login</title>
@@ -21,7 +22,7 @@
       background-color: #fff;
       padding: 2rem;
       border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       width: 300px;
     }
 
@@ -42,7 +43,7 @@
     .login-box button {
       width: 100%;
       padding: 0.75rem;
-      background-color:#2c3e50;
+      background-color: #2c3e50;
       color: white;
       border: none;
       border-radius: 0.5rem;
@@ -55,19 +56,19 @@
     }
   </style>
 </head>
+
 <body>
   <div class="login-box">
     {% if error %}
-      <div class="alert">{{ error }}</div>
+    <div class="alert">{{ error }}</div>
     {% endif %}
     <form method="POST" action="{% url 'emplogin' %}">
       {% csrf_token %}
-       <img src="/media/]logoog.jpg" 
-     alt="Login Banner"
-     style="display: block; margin: 0 auto -10px auto; width: 100px; height: 100px; object-fit: contain;">
+      <img src="/media/]logoog.jpg" alt="Login Banner"
+        style="display: block; margin: 0 auto -10px auto; width: 100px; height: 100px; object-fit: contain;">
 
-  <h2>Employee-Login</h2>
-      
+      <h2>Employee-Login</h2>
+
       <input type="text" name="employee_id" placeholder="Your Employee ID" required>
 
       <input type="password" name="password" placeholder="Password" required>
@@ -75,4 +76,5 @@
     </form>
   </div>
 </body>
+
 </html>
