@@ -5,14 +5,14 @@
 
 <title>Apply for Leave</title>
 
-<div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 10px; border: 1px solid #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-family: Arial; color: #0b1d51;">
+<div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 10px; border: 1px solid #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.45); font-family: Arial; color: #000000;">
   <h2 style="text-align: center; margin-bottom: 25px;">Apply for Leave</h2>
 
   <form method="post">
     {% csrf_token %}
     
     <label>Leave Type</label>
-    <select name="leave_type" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #f9f9f9;">
+    <select name="leave_type" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #f9f9f9; box-shadow: black;">
       <option value="CL">Casual Leave</option>
       <option value="SL">Sick Leave</option>
       <option value="EL">Earned Leave</option>
@@ -27,7 +27,7 @@
     <label>Reason</label>
     <textarea name="reason" rows="4" required style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #f9f9f9;"></textarea>
 
-    <button type="submit" style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 16px;">
+    <button type="submit" style="width: 100%; padding: 12px; background: #FFC107; color: rgb(0, 0, 0); border: none; border-radius: 6px; font-weight: bold; font-size: 16px;  ">
       Submit Leave Request
     </button>
   </form>

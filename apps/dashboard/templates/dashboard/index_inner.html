@@ -1,131 +1,200 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>project</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 </head>
 <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-     /* background: linear-gradient(to right, #2c3e50, #4ca1af); */
-      background: #ffffff;
-    }
-  </style>
-<body>
-  
-<style>
-  .navbar-cyan {
-    background-color: #0B1D51;
-
-  }
-  .navbar-cyan .nav-link,
-  .navbar-cyan .navbar-brand {
-    color: #ffffff !important;
-  }
-  .navbar-cyan .dropdown {
-    color: black !important;
-  }
-  .navbar-cyan .dropdown-item {
-    color: black;
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    /* background: linear-gradient(to right, #2c3e50, #4ca1af); */
+    background: #ffffff;
   }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-cyan">
+<body>
 
-    
-  <div class="container-fluid">
-   <img src="/media/logo2.png" 
-     alt="Login Banner"
-     style="height: 40px; width: auto; object-fit: contain; vertical-align: middle; margin-right: 10px;">
+  <style>
+    .navbar-cyan {
+      background-color: #2c3e50;
 
-    <a class="navbar-brand" href="{% url 'index_inner' %}">TECHNOVA</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    }
 
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+    .navbar-cyan .nav-link,
+    .navbar-cyan .navbar-brand {
+      color: #ffffff !important;
+    }
 
-        <!-- My Activities Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Activities
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'claims_page' %}">Claims</a></li>
-            <li><a class="dropdown-item" href="{% url 'claim_status' %}">Claims Status</a></li>
-            <li><a class="dropdown-item" href="{% url 'proof_status' %}">Proof Status</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'loan_history' %}">Apply Loans</a></li>
-          </ul>
-        </li>
+    .navbar-cyan .dropdown {
+      color: black !important;
+    }
 
-        <!-- Download Centre Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Download Centre
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'salary' %}">Salary Slips & Documentation</a></li>
-            <li><a class="dropdown-item" href="{% url 'my_acceptance' %}">My Acceptance</a></li>
-            <li><a class="dropdown-item" href="{% url 'apply_leave' %}">My Leave</a></li>
-          </ul>
-        </li>
+    .navbar-cyan .dropdown-item {
+      color: black;
+    }
+  </style>
 
-        <!-- My Joining Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Joining
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'generalinfo' %}">General Information</a></li>
-            <li><a class="dropdown-item" href="{% url 'qualification' %}">Qualification</a></li>
-            <li><a class="dropdown-item" href="{% url 'induction' %}">Induction Feedback</a></li>
-            <li><a class="dropdown-item" href="{% url 'family_info' %}">Mediclaim Details</a></li>
-            <li><a class="dropdown-item" href="{% url 'updategeneral' %}">General Information Update</a></li>
-          </ul>
-        </li>
-
-        <!-- policies & circulars Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Policies & Circulars 
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'policy_and_circular' %}">Policies & Circulars</a>
-</li>
-          </ul>
-        </li>
-
-      
-<div class="d-flex align-items-center ms-auto">
-  {% if request.session.employee_name %}
-    <span class="me-3 text-light fw-bold">Welcome, {{ request.session.employee_name }}</span>
-  {% endif %}
-
-  <!-- Timer Display -->
-<span id="session-timer" style="color: white; font-weight: 600; margin-right: 20px;" class="small fw-semibold"></span>
+  <nav class="navbar navbar-expand-lg navbar-cyan">
 
 
-  <!-- Logout Button -->
-  <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-</div>
+    <div class="container-fluid">
+      <img src="/media/]logoog.jpg" alt="Login Banner"
+        style="height: 40px; width: auto; object-fit: contain; vertical-align: middle; margin-right: 10px;">
+
+      <a class="navbar-brand" href="{% url 'index_inner' %}">TECHNOVA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+          <!-- My Activities Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Activities
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'claims_page' %}">Claims</a></li>
+              <li><a class="dropdown-item" href="{% url 'claim_status' %}">Claims Status</a></li>
+              <li><a class="dropdown-item" href="{% url 'proof_status' %}">Proof Status</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{% url 'loan_history' %}">Apply Loans</a></li>
+            </ul>
+          </li>
+
+          <!-- Download Centre Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Download Centre
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'salary' %}">Salary Slips & Documentation</a></li>
+              <li><a class="dropdown-item" href="{% url 'my_acceptance' %}">My Acceptance</a></li>
+              <li><a class="dropdown-item" href="{% url 'apply_leave' %}">My Leave</a></li>
+            </ul>
+          </li>
+
+          <!-- My Joining Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Joining
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'generalinfo' %}">General Information</a></li>
+              <li><a class="dropdown-item" href="{% url 'qualification' %}">Qualification</a></li>
+              <li><a class="dropdown-item" href="{% url 'induction' %}">Induction Feedback</a></li>
+              <li><a class="dropdown-item" href="{% url 'family_info' %}">Mediclaim Details</a></li>
+              <li><a class="dropdown-item" href="{% url 'updategeneral' %}">General Information Update</a></li>
+            </ul>
+          </li>
+
+          <!-- policies & circulars Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Policies & Circulars
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'policy_and_circular' %}">Policies & Circulars</a>
+              </li>
+            </ul>
+          </li>
+
+
+          <div class="d-flex align-items-center ms-auto">
+            {% if request.session.employee_name %}
+            <span class="me-3 text-light fw-bold">Welcome, {{ request.session.employee_name }}</span>
+            {% endif %}
+
+            <!-- Timer Display -->
+            <span id="session-timer" style="color: white; font-weight: 600; margin-right: 20px;"
+              class="small fw-semibold"></span>
+
+
+            <!-- Logout Button -->
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+          </div>
 
 
 
-{% if request.session.start_time %}
+          {% if request.session.start_time %}
+          <script>
+            const REDIRECT_URL = "{% url 'emplogin' %}";
+            const SESSION_DURATION = 15 * 60 * 1000; // 15 min
+            const WARNING_BEFORE = 2 * 60 * 1000;    // 2 min before timeout
 
-<!-- Timer Display with Forced White Text -->
+            const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
+            const currentTime = Date.now();
+            const elapsed = currentTime - sessionStart;
+            let remainingTime = SESSION_DURATION - elapsed;
 
-<script>
+            const timerDisplay = document.getElementById("session-timer");
+            const countdownTimer = document.getElementById("countdownTimer");
+
+            function updateTimerDisplay() {
+              const minutes = Math.floor(remainingTime / 1000 / 60);
+              const seconds = Math.floor((remainingTime / 1000) % 60);
+              if (timerDisplay) {
+                timerDisplay.textContent = `Your Current Session Will Expire in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+              }
+            }
+
+            function startCountdown(durationMs) {
+              let countdown = durationMs / 1000;
+              const interval = setInterval(() => {
+                const min = Math.floor(countdown / 60);
+                const sec = countdown % 60;
+                countdownTimer.textContent = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+                if (countdown <= 0) clearInterval(interval);
+                countdown--;
+              }, 1000);
+            }
+
+            const countdownInterval = setInterval(() => {
+              remainingTime -= 1000;
+              updateTimerDisplay();
+
+              if (remainingTime <= WARNING_BEFORE + 1000 && remainingTime > WARNING_BEFORE - 1000) {
+                const modal = new bootstrap.Modal(document.getElementById('logoutWarningModal'));
+                modal.show();
+                startCountdown(WARNING_BEFORE);
+              }
+
+              if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                alert("Session expired. Redirecting...");
+                window.location.href = REDIRECT_URL;
+              }
+            }, 1000);
+
+            updateTimerDisplay();
+
+            document.getElementById("stayLoggedInBtn").addEventListener("click", () => {
+              location.reload(); // refreshes and renews the session
+            });
+          </script>
+
+
+          <!-- Timer Display with Forced White Text -->
+
+          <!-- <script>
   const REDIRECT_URL = "{% url 'emplogin' %}";
   const SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
 
@@ -153,206 +222,261 @@
   }, 1000);
 
   updateTimerDisplay();
-</script>
+</script> -->
 
-{% endif %}
+          <!-- Logout Warning Modal -->
+          <div class="modal fade" id="logoutWarningModal" tabindex="-1" aria-labelledby="logoutWarningLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header bg-warning">
+                  <h5 class="modal-title text-dark" id="logoutWarningLabel">⚠️ Session Expiring</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                  Your session will expire in <span id="countdownTimer" class="fw-bold">11:50</span> minutes.
+                  <br>If you're still working, click <strong>"Stay Logged In"</strong>.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="stayLoggedInBtn" class="btn btn-success" data-bs-dismiss="modal">Stay Logged
+                    In</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
+
+          {% endif %}
+
+      </div>
     </div>
+  </nav>
+
+
   </div>
-</nav>
-
-
-    </div>
   </div>
-</nav>
-<BR></BR>
+  </nav>
+  <BR></BR>
 
 
-{% block content %}
-<style>
-  
+  {% block content %}
+  <style>
     body {
-        background-color: #ffffff;
-        font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f9fc;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     .card {
-        border-radius: 5px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
     .card-header {
-        background-color: #0B1D51;
-        color: #ffffff;
-        font-weight: bold;
+      background-color: #2c3e50;
+      color: #ffffff;
+      font-weight: bold;
     }
 
     .progress-bar {
-        background-color: #0B1D51;
+      background-color: #2c3e50;
     }
 
     .label-title {
-        font-weight: 500;
-        color: #555;
+      font-weight: 500;
+      color: #555;
     }
 
     .label-value {
-        color: #333;
+      color: #333;
     }
-</style>
-<!--bday-->
-<h4 style="color: black;">🎂 Upcoming Birthdays</h4>
-<ul>
-  {% for emp in birthdays %}
-    <li style="color:black;">{{ emp.first_name }} {{ emp.last_name }} – {{ emp.date_of_birth|date:"d M" }}</li>
-  {% empty %}
-    <li style="color:black;">No upcoming birthdays.</li>
-  {% endfor %}
-</ul>
-
-<!--bday-->
-<div class="container-fluid mt-3 px-4">
+  </style>
+  <!--bday-->
+  
+  <!--bday-->
+  <div class="container-fluid mt-3 px-4">
+    <h4 style="color: black;">🎂 Upcoming Birthdays</h4>
+    <ul>
+      {% for emp in birthdays %}
+      <li style="color:black;">{{ emp.first_name }} {{ emp.last_name }} – {{ emp.date_of_birth|date:"d M" }}</li>
+      {% empty %}
+      <li style="color:black;">No upcoming birthdays.</li>
+      {% endfor %}
+    </ul>
     <div class="row g-3">
-        <!-- My Profile -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">MY PROFILE  <a href="{% url 'edit_profile' %}" class="btn btn-success text-white me-2">Edit Profile</a></div>
-                <div class="card-body">
-                    <label class="d-block mb-2">100% Profile Completed</label>
-                    <div class="progress mb-3" style="height: 8px;">
-                        <div class="progress-bar" role="progressbar" style="width: 100%"></div>
-                    </div>
- <table class="table table-borderless">
-        <tbody>
-          <tr>
-            <th style="width: 40%;">Employee ID:</th>
-            <td>{{ employee.employee_id }}</td>
-          </tr>
-          <tr>
-            <th>Name:</th>
-            <td>{{ employee.first_name }} {{ employee.last_name }}</td>
-          </tr>
-          <tr>
-            <th>Company Email:</th>
-            <td>{{ employee.company_email }}</td>
-          </tr>
-          <tr>
-            <th>Private Email:</th>
-            <td>{{ employee.pvt_email }}</td>
-          </tr>
-          <tr>
-            <th>Mobile:</th>
-            <td>{{ employee.mobile }}</td>
-          </tr>
-          <tr>
-            <th>Designation:</th>
-            <td>{{ employee.designation }}</td>
-          </tr>
-          <tr>
-            <th>Department:</th>
-            <td>{{ employee.department }}</td>
-          </tr>
-          <tr>
-            <th>Location:</th>
-            <td>{{ employee.location }}</td>
-          </tr>
-        </tbody>
-      </table>
-                </div>
+      <!-- My Profile -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <h3>
+              MY PROFILE
+            </h3>
+            <a href="{% url 'edit_profile' %}" class="btn btn-outline-light me-2"><i
+                class="bi bi-pencil-square"></i></a>
+          </div>
+          <div class="card-body">
+            <label class="d-block mb-2">100% Profile Completed</label>
+            <div class="progress mb-3" style="height: 8px;">
+              <div class="progress-bar" role="progressbar" style="width: 100%"></div>
             </div>
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <th style="width: 40%;">Employee ID:</th>
+                  <td>{{ employee.employee_id }}</td>
+                </tr>
+                <tr>
+                  <th>Name:</th>
+                  <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                </tr>
+                <tr>
+                  <th>Company Email:</th>
+                  <td>{{ employee.company_email }}</td>
+                </tr>
+                <tr>
+                  <th>Private Email:</th>
+                  <td>{{ employee.pvt_email }}</td>
+                </tr>
+                <tr>
+                  <th>Mobile:</th>
+                  <td>{{ employee.mobile }}</td>
+                </tr>
+                <tr>
+                  <th>Designation:</th>
+                  <td>{{ employee.designation }}</td>
+                </tr>
+                <tr>
+                  <th>Department:</th>
+                  <td>{{ employee.department }}</td>
+                </tr>
+                <tr>
+                  <th>Location:</th>
+                  <td>{{ employee.location }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payroll & Slips -->
+      </style>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header">MY PAYROLL</div>
+          <div class="card-body text-center">
+            <h6>My Slips</h6>
+            <div class="d-flex justify-content-around mb-3">
+              {% for month in salary_slips %}
+              <div>
+                <p>{{ month.month }} - {{ month.year }}</p>
+                <a href="{{ month.download_url }}" class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-download"></i> Download
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="d-flex justify-content-center gap-3">
+              <style>
+                .btn-info.text-dark-custom {
+                  color: #2c3e50 !important;
+                }
+
+                .btn-info.text-dark-custom:hover {
+                  color: #1a252f !important;
+                }
+              </style>
+
+             <a href="{% url 'salary' %}" class="btn text-dark me-2" style="background-color: #FFC107;">Salary Slips</a>
+
+
+
+
+            </div>
+          </div>
         </div>
 
-        <!-- Payroll & Slips -->
-        </style>
-        <div class="col-md-8">
-            <div class="card mb-3">
-                <div class="card-header">MY PAYROLL</div>
-                <div class="card-body text-center">
-                    <h6>My Slips</h6>
-                    <div class="d-flex justify-content-around mb-3">
-                        {% for month in salary_slips %}
-                        <div>
-                            <p>{{ month.month }} - {{ month.year }}</p>
-                            <a href="{{ month.download_url }}" class="btn btn-sm btn-outline-primary">
-                                <i class="bi bi-download"></i> Download
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="d-flex justify-content-center gap-3">
-<style>
-  .btn-info.text-dark-custom {
-    color: #2c3e50 !important;
-  }
-  .btn-info.text-dark-custom:hover {
-    color: #1a252f !important;
-  }
-</style>
+        <!-- Let's Get Social -->
+        <div class="card">
+          <div class="card-header">LET’S GET SOCIAL!</div>
+          <div class="card-body">
+            <p><strong>Hey Team!</strong></p>
+            <p><em>We’re on social media. Are you following us yet? If not, now’s the perfect time!</em></p>
+            <p>Stay updated on all the cool things happening at TechNova from big wins to behind-the-scenes fun.</p>
+            <h4>Follow Us</h4>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com" target="_blank" style="width: 28px; height: 28px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="100%" height="100%">
+                  <path fill="#0077B5"
+                    d="M100.28 448H7.4V148.9h92.88zm-46.44-340a53.9 53.9 0 1 1 53.9-53.9 53.9 53.9 0 0 1-53.9 53.9zM447.9 448h-92.4V302.4c0-34.7-12.5-58.4-43.8-58.4-23.9 0-38.2 16.1-44.5 31.6-2.3 5.5-2.8 13.1-2.8 20.8V448h-92.6s1.2-270.5 0-298.1h92.6v42.3c-.2.3-.5.7-.7 1h.7v-1c12.3-18.9 34.3-45.9 83.5-45.9 60.9 0 106.6 39.8 106.6 125.4V448z" />
+                </svg>
+              </a>
 
-<a href="{% url 'salary' %}" class="btn btn-success text-white me-2">Salary Slips</a>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com" target="_blank" style="width: 28px; height: 28px;">
+                <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                  <defs>
+                    <linearGradient id="insta-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#feda75" />
+                      <stop offset="30%" stop-color="#fa7e1e" />
+                      <stop offset="60%" stop-color="#d62976" />
+                      <stop offset="100%" stop-color="#962fbf" />
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#insta-gradient)"
+                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9 0 63.6 51.3 114.9 114.9 114.9 63.6 0 114.9-51.3 114.9-114.9 0-63.6-51.3-114.9-114.9-114.9zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7 0-41.2 33.5-74.7 74.7-74.7 41.2 0 74.7 33.5 74.7 74.7 0 41.2-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9 0-14.9 12-26.9 26.9-26.9 14.9 0 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.7-9.9-67.2-36.3-92.6S361.7 8.6 326 6.9c-35.7-1.7-143.2-1.7-178.9 0-35.7 1.7-67.2 9.9-92.6 36.3S8.6 150.3 6.9 186c-1.7 35.7-1.7 143.2 0 178.9 1.7 35.7 9.9 67.2 36.3 92.6s56.9 34.6 92.6 36.3c35.7 1.7 143.2 1.7 178.9 0 35.7-1.7 67.2-9.9 92.6-36.3s34.6-56.9 36.3-92.6c1.7-35.7 1.7-143.2 0-178.9zm-48.1 218c-7.8 19.6-22.9 34.7-42.5 42.5-29.4 11.7-99.2 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.5-42.5-11.7-29.4-9-99.2-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.5-42.5 29.4-11.7 99.2-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.5 42.5 11.7 29.4 9 99.2 9 132.1s2.7 102.7-9 132.1z" />
+                </svg>
+              </a>
 
-
-
-                    </div>
-                </div>
+              <!-- Twitter -->
+              <a href="https://www.twitter.com" target="_blank" style="width: 28px; height: 28px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+                  <path fill="#1DA1F2"
+                    d="M459.4 151.7c.3 4.1.3 8.2.3 12.4 0 126.1-95.9 271.6-271.6 271.6-54 0-104.4-15.8-146.7-42.7 7.6.9 15.1 1.2 23 .1 44.8-5.3 85.7-27.3 116.3-59.7-41.9-.8-77.3-28.5-89.4-66.7 5.9.9 11.9 1.5 18.2 1.5 8.7 0 17.2-1.2 25.2-3.3-43.7-8.7-76.5-47.3-76.5-93.5v-1.2c12.9 7.2 27.8 11.5 43.6 12-25.9-17.3-43-46.7-43-80.1 0-17.6 4.8-34.1 13.2-48.2 48.1 59.2 119.8 98.2 200.7 102.4-1.6-7-2.4-14.3-2.4-21.8 0-52.6 42.6-95.2 95.2-95.2 27.4 0 52.1 11.5 69.4 30 21.7-4.3 42-12.2 60.4-23.2-7.1 22.3-22.3 41-42.1 52.8 19.2-2.2 37.3-7.4 54.3-15-12.6 19.2-28.3 36.3-46.6 49.9z" />
+                </svg>
+              </a>
             </div>
 
-            <!-- Let's Get Social -->
-            <div class="card">
-                <div class="card-header">LET’S GET SOCIAL!</div>
-                <div class="card-body">
-                    <p><strong>Hey Team!</strong></p>
-                    <p><em>We’re on social media. Are you following us yet? If not, now’s the perfect time!</em></p>
-                    <p>Stay updated on all the cool things happening at TechNova from big wins to behind-the-scenes fun.</p>
-                   <h4>Follow Us</h4>
-<a href="https://www.linkedin.com" target="_blank">
-  <i class="fab fa-linkedin fa-2x" style="color:black; margin-right:10px;"></i>
-</a>
-<a href="https://www.instagram.com" target="_blank">
-  <i class="fab fa-instagram fa-2x" style="color:black; margin-right:10px;"></i>
-</a>
-<a href="https://www.twitter.com" target="_blank">
-  <i class="fab fa-twitter fa-2x" style="color:black;"></i>
-</a>
 
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-{% endblock %}
-
-<footer class="mt-4" style="background: white; color: black; ">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5>TechNova Inc.</h5>
-        <p style="font-size: 14px;">Smart solutions for smarter workforce. Built for performance, designed for people.</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h6>Quick Access</h6>
-        <style></style>
-        <ul class="list-unstyled" style="font-size: 14px;">
-          <li><a href="{% url 'claims_page' %}" class="text-black text-decoration-none">My Activities</a></li>
-          <li><a href="{% url 'salary' %}" class="text-black text-decoration-none">Download Centre</a></li>
-          <li><a href="{% url 'generalinfo' %}" class="text-black text-decoration-none">My Joining</a></li>
-          <li><a href="{% url 'policy_and_circular' %}" class="text-black text-decoration-none">Policies & Circulars</a></li>
-          
-        </ul>
-      </div>
-      
-    <div class="col-md-4 mb-3">
-                <h3>NEWSLETTER</h3>
-                <P>Subscribe For Latest Updates</P>
-                <input type="email" placeholder="your email" class="email">
-                <input type="submit" value="Subscribe" class="btn-btn-danger">
-        </div>
-    <hr class="border-light">
-    <div style="font-size: 13px;">&copy; {{ current_year }} TechNova Inc. | All rights reserved.</div>
   </div>
-</footer>
+  {% endblock %}
+
+  <footer class="mt-4" style="background: #f7f9fc; color: black; ">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>TechNova Inc.</h5>
+          <p style="font-size: 14px;">Smart solutions for smarter workforce. Built for performance, designed for people.
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h6>Quick Access</h6>
+          <style></style>
+          <ul class="list-unstyled" style="font-size: 14px;">
+            <li><a href="{% url 'claims_page' %}" class="text-black text-decoration-none">My Activities</a></li>
+            <li><a href="{% url 'salary' %}" class="text-black text-decoration-none">Download Centre</a></li>
+            <li><a href="{% url 'generalinfo' %}" class="text-black text-decoration-none">My Joining</a></li>
+            <li><a href="{% url 'policy_and_circular' %}" class="text-black text-decoration-none">Policies &
+                Circulars</a></li>
+
+          </ul>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <h3>NEWSLETTER</h3>
+          <P>Subscribe For Latest Updates</P>
+          <input type="email" placeholder="your email" class="email">
+          <input type="submit" value="Subscribe" class="btn-btn-danger">
+        </div>
+        <hr class="border-light">
+        <div style="font-size: 13px;">&copy; {{ current_year }} TechNova Inc. | All rights reserved.</div>
+      </div>
+  </footer>
 
 </body>
-</html>
 
-   
+</html>
