@@ -42,6 +42,7 @@
 </style>
 
 <div class="form-container">
+
     <form method="post" action="{% url 'edit_profile' %}">
         {% csrf_token %}
         <div class="card">
@@ -52,12 +53,10 @@
                 {% if error %}
                 <div class="alert alert-danger">{{ error }}</div>
                 {% endif %}
-                <div class="progress mb-3" style="height: 8px;">
-                    <div class="progress-bar" role="progressbar" style="width: 100%; background-color: #2c3e50;">
-                    </div>
-                </div>
-
-                <label>Employee ID:</label>
+               
+                        Note - The Fields marked in (*) cannot be changed.
+                   <br></br>
+                <label>Employee ID:*</label>
                 <input type="text" name="employee_id" class="form-control" value="{{ employee.employee_id }}" readonly>
 
                 <label>First Name:</label>
@@ -66,7 +65,7 @@
                 <label>Last Name:</label>
                 <input type="text" name="last_name" class="form-control" value="{{ employee.last_name }}" required>
 
-                <label>Company Email:</label>
+                <label>Company Email:*</label>
                 <input type="email" name="company_email" class="form-control" value="{{ employee.company_email }}">
 
                 <label>Private Email:</label>
@@ -75,10 +74,10 @@
                 <label>Mobile:</label>
                 <input type="text" name="mobile" class="form-control" value="{{ employee.mobile }}">
 
-                <label>Designation:</label>
+                <label>Designation:*</label>
                 <input type="text" name="designation" class="form-control" value="{{ employee.designation }}">
 
-                <label>Department:</label>
+                <label>Department:*</label>
                 <input type="text" name="department" class="form-control" value="{{ employee.department }}">
 
                 <label>Location:</label>

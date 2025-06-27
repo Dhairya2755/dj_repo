@@ -77,12 +77,19 @@ def employeelogin(request):
 #  Dashboard home page
 
 def index_inner(request):
+    print("*****-1")
     employee_id = request.session.get('employee_id')
+    
     if not employee_id:
+        print("*****-2")
         return redirect('emplogin')
 
     employee = get_object_or_404(Employee, employee_id=employee_id)
+    print("*****-3")
+
     total_employees = Employee.objects.count()
+    print("*****-4")
+    print(total_employees)
     salary_slips = SalarySlip.objects.filter(employee=employee).order_by('-year', '-month')[:3]
     family_members = FamilyMember.objects.filter(employee=employee)
 
@@ -499,14 +506,16 @@ def leave_history_view(request):
     return render(request, 'dashboard/leave_history.html', {'employee': employee, 'leaves': leaves})    
 
 
-#navbar
-def index_inner(request):
-    employee_id = request.session.get('employee_id')
-    if not employee_id:
-        return redirect('emplogin')
+# #navbar
+# def index_inner(request):
+#     employee_id = request.session.get('employee_id')
+#     if not employee_id:
+#         return redirect('emplogin')
     
-    employee = get_object_or_404(Employee, employee_id=employee_id)
-    return render(request, 'dashboard/index_inner.html', {'employee': employee})
+#     employee_count 
+    
+#     employee = get_object_or_404(Employee, employee_id=employee_id)
+#     return render(request, 'dashboard/index_inner.html', {'employee': employee})
 
 
 

@@ -128,83 +128,89 @@
               class="small fw-semibold"></span>
 
 
-         <!-- In your navbar -->
-<div class="dropdown ms-3">
-  <button class="btn btn-light dropdown-toggle d-flex align-items-center" style="background-color: #2c3e50;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; border-radius: 8px;">
-    <i class="bi bi-person-circle" style="font-size: 22px; color: white; "></i>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-    <li><h6 class="dropdown-header">{{ request.session.employee_name }}</h6></li>
-    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">📝 My Profile Update</a></li>
-    <li><a class="dropdown-item" href="{% url 'salary' %}">💰 My Payroll</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🚪 Logout</a></li>
-  </ul>
-</div>
+            <!-- In your navbar -->
+            <div class="dropdown ms-3">
+              <button class="btn btn-light dropdown-toggle d-flex align-items-center" style="background-color: #2c3e50;"
+                type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false"
+                style="padding: 6px 12px; border-radius: 8px;">
+                <i class="bi bi-person-circle" style="font-size: 22px; color: white; "></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                <li>
+                  <h6 class="dropdown-header">{{ request.session.employee_name }}</h6>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'edit_profile' %}">📝 My Profile Update</a></li>
+                <li><a class="dropdown-item" href="{% url 'salary' %}">💰 My Payroll</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🚪 Logout</a></li>
+              </ul>
+            </div>
 
 
 
-          {% if request.session.start_time %}
-          <script>
-            const REDIRECT_URL = "{% url 'emplogin' %}";
-            const SESSION_DURATION = 15 * 60 * 1000; // 15 min
-            const WARNING_BEFORE = 2 * 60 * 1000;    // 2 min before timeout
+            {% if request.session.start_time %}
+            <script>
+              const REDIRECT_URL = "{% url 'emplogin' %}";
+              const SESSION_DURATION = 15 * 60 * 1000; // 15 min
+              const WARNING_BEFORE = 2 * 60 * 1000;    // 2 min before timeout
 
-            const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
-            const currentTime = Date.now();
-            const elapsed = currentTime - sessionStart;
-            let remainingTime = SESSION_DURATION - elapsed;
+              const sessionStart = Number("{{ request.session.start_time|floatformat:'0' }}") * 1000;
+              const currentTime = Date.now();
+              const elapsed = currentTime - sessionStart;
+              let remainingTime = SESSION_DURATION - elapsed;
 
-            const timerDisplay = document.getElementById("session-timer");
-            const countdownTimer = document.getElementById("countdownTimer");
+              const timerDisplay = document.getElementById("session-timer");
+              const countdownTimer = document.getElementById("countdownTimer");
 
-            function updateTimerDisplay() {
-              const minutes = Math.floor(remainingTime / 1000 / 60);
-              const seconds = Math.floor((remainingTime / 1000) % 60);
-              if (timerDisplay) {
-                timerDisplay.textContent = `Your Current Session Will Expire in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+              function updateTimerDisplay() {
+                const minutes = Math.floor(remainingTime / 1000 / 60);
+                const seconds = Math.floor((remainingTime / 1000) % 60);
+                if (timerDisplay) {
+                  timerDisplay.textContent = `Your Current Session Will Expire in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                }
               }
-            }
 
-            function startCountdown(durationMs) {
-              let countdown = durationMs / 1000;
-              const interval = setInterval(() => {
-                const min = Math.floor(countdown / 60);
-                const sec = countdown % 60;
-                countdownTimer.textContent = `${min}:${sec < 10 ? '0' : ''}${sec}`;
-                if (countdown <= 0) clearInterval(interval);
-                countdown--;
+              function startCountdown(durationMs) {
+                let countdown = durationMs / 1000;
+                const interval = setInterval(() => {
+                  const min = Math.floor(countdown / 60);
+                  const sec = countdown % 60;
+                  countdownTimer.textContent = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+                  if (countdown <= 0) clearInterval(interval);
+                  countdown--;
+                }, 1000);
+              }
+
+              const countdownInterval = setInterval(() => {
+                remainingTime -= 1000;
+                updateTimerDisplay();
+
+                if (remainingTime <= WARNING_BEFORE + 1000 && remainingTime > WARNING_BEFORE - 1000) {
+                  const modal = new bootstrap.Modal(document.getElementById('logoutWarningModal'));
+                  modal.show();
+                  startCountdown(WARNING_BEFORE);
+                }
+
+                if (remainingTime <= 0) {
+                  clearInterval(countdownInterval);
+                  alert("Session expired. Redirecting...");
+                  window.location.href = REDIRECT_URL;
+                }
               }, 1000);
-            }
 
-            const countdownInterval = setInterval(() => {
-              remainingTime -= 1000;
               updateTimerDisplay();
 
-              if (remainingTime <= WARNING_BEFORE + 1000 && remainingTime > WARNING_BEFORE - 1000) {
-                const modal = new bootstrap.Modal(document.getElementById('logoutWarningModal'));
-                modal.show();
-                startCountdown(WARNING_BEFORE);
-              }
-
-              if (remainingTime <= 0) {
-                clearInterval(countdownInterval);
-                alert("Session expired. Redirecting...");
-                window.location.href = REDIRECT_URL;
-              }
-            }, 1000);
-
-            updateTimerDisplay();
-
-            document.getElementById("stayLoggedInBtn").addEventListener("click", () => {
-              location.reload(); // refreshes and renews the session
-            });
-          </script>
+              document.getElementById("stayLoggedInBtn").addEventListener("click", () => {
+                location.reload(); // refreshes and renews the session
+              });
+            </script>
 
 
-          <!-- Timer Display with Forced White Text -->
+            <!-- Timer Display with Forced White Text -->
 
-          <!-- <script>
+            <!-- <script>
   const REDIRECT_URL = "{% url 'emplogin' %}";
   const SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
 
@@ -234,32 +240,33 @@
   updateTimerDisplay();
 </script> -->
 
-          <!-- Logout Warning Modal -->
-          <div class="modal fade" id="logoutWarningModal" tabindex="-1" aria-labelledby="logoutWarningLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header bg-warning">
-                  <h5 class="modal-title text-dark" id="logoutWarningLabel">⚠️ Session Expiring</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-dark">
-                  Your session will expire in <span id="countdownTimer" class="fw-bold">11:50</span> minutes.
-                  <br>If you're still working, click <strong>"Stay Logged In"</strong>.
-                </div>
-                <div class="modal-footer">
-                  <button type="button" id="stayLoggedInBtn" class="btn btn-success" data-bs-dismiss="modal">Stay Logged
-                    In</button>
+            <!-- Logout Warning Modal -->
+            <div class="modal fade" id="logoutWarningModal" tabindex="-1" aria-labelledby="logoutWarningLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-dark" id="logoutWarningLabel">⚠️ Session Expiring</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-dark">
+                    Your session will expire in <span id="countdownTimer" class="fw-bold">11:50</span> minutes.
+                    <br>If you're still working, click <strong>"Stay Logged In"</strong>.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="stayLoggedInBtn" class="btn btn-success" data-bs-dismiss="modal">Stay
+                      Logged
+                      In</button>
+                  </div>
                 </div>
               </div>
             </div>
+
+
+            {% endif %}
+
           </div>
-
-
-          {% endif %}
-
       </div>
-    </div>
   </nav>
 
 
@@ -315,78 +322,116 @@
     <div class="row g-3">
 
       <div class="container mt-5">
-  <div class="row g-4 justify-content-center">
+        <div class="row g-4 justify-content-center  mb-3">
 
-   
+          <!-- Total Employees Card -->
+          <div class="col-md-4 d-flex al">
+            <div class="card alert alert-success w-100 h-100">
+              <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+                <h5 class="card-title">Total Employees:</h5>
+                <h2 class="fw-bold">{{ total_employees }}</h2>
+              </div>
+            </div>
+          </div>
 
-    <!-- Total Employees Card -->
-    <div class="col-md-4">
-      <div class="card text-white" style="background-color: #ffc107;">
-        <div class="card-body text-center">
-          <h5 class="card-title">Total Employees</h5>
-          <h2 class="fw-bold">{{ total_employees }}</h2>
-        </div>
-      </div>
-    </div>
-
-    <!-- Salary Slip Card -->
-    <div class="col-md-4">
-      <div class="card text-white" style="background-color: #dc3545;">
-        <div class="card-body text-center">
-          <h5 class="card-title">My Payroll</h5>
-          {% if salary_slips %}
-            {% for slip in salary_slips %}
-              <p class="mb-1">{{ slip.month }} {{ slip.year }}</p>
-              <div class="btn-group mb-2">
-                <a href="{{ slip.pdf_file.url }}" target="_blank" class="btn btn-light btn-sm">View</a>
-                <a href="{{ slip.pdf_file.url }}" download class="btn btn-dark btn-sm">Download</a>
-              </div><br>
-            {% endfor %}
-          {% else %}
-            <p>No slips available</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Mediclaim Info -->
-    <div class="col-md-4">
-      <div class="card text-white" style="background-color: #28a745;">
-        <div class="card-body text-center">
-          <h5 class="card-title">Mediclaim Details</h5>
-          {% if family_members %}
-            <table class="table table-sm table-borderless text-white">
-              <thead>
-                <tr><th>Name</th><th>Age</th><th>Relation</th></tr>
-              </thead>
-              <tbody>
-                {% for member in family_members %}
-                <tr>
-                  <td>{{ member.name }}</td>
-                  <td>{{ member.age }}</td>
-                  <td>{{ member.relation }}</td>
-                </tr>
+          <!-- Salary Slip Card -->
+          <div class="col-md-4 d-flex">
+            <div class="card alert alert-warning w-100 h-100">
+              <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+                <h5 class="card-title">My Payroll</h5>
+                {% if salary_slips %}
+                {% for slip in salary_slips %}
+                <p class="mb-1">{{ slip.month }} {{ slip.year }}</p>
+                <div class="btn-group mb-2">
+                  <a href="{{ slip.pdf_file.url }}" target="_blank" class="btn btn-light btn-sm">View</a>
+                  <a href="{{ slip.pdf_file.url }}" download class="btn btn-dark btn-sm">Download</a>
+                </div><br>
                 {% endfor %}
-              </tbody>
-            </table>
-          {% else %}
-            <p>No Mediclaim Info</p>
-          {% endif %}
+                {% else %}
+                <p>No slips available</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Mediclaim Info -->
+          <div class="col-md-4 d-flex">
+            <div class="card alert alert-info w-100 h-100">
+              <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+                <h5 class="card-title">Mediclaim Details</h5>
+                {% if family_members %}
+                <table class="table table-sm table-border-dark mediclaim-table">
+                  ">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Age</th>
+                      <th>Relation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for member in family_members %}
+                    <tr>
+                      <td>{{ member.name }}</td>
+                      <td>{{ member.age }}</td>
+                      <td>{{ member.relation }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <style>
+                    .mediclaim-table {
+                      background-color: #cff4fc;
+                      /* Matches alert-info */
+                      color: black;
+                      border: 1px solid #a1d3e2;
+                      /* light border color */
+                    }
+
+                    .mediclaim-table th,
+                    .mediclaim-table td {
+                      border: 1px solid #a1d3e2;
+                      /* border around each cell */
+                      padding: 8px;
+                    }
+
+                    .mediclaim-table th {
+                      background-color: #b6effb;
+                      /* optional: slightly darker header */
+                    }
+
+                    .mediclaim-table {
+                      background-color: #cff4fc;
+                      /* default alert-info background in Bootstrap 5 */
+                      color: black;
+                    }
+
+                    .mediclaim-table th,
+                    .mediclaim-table td {
+                      background-color: transparent;
+                      /* keep individual cells transparent to inherit from table */
+                    }
+                  </style>
+
+                </table>
+                {% else %}
+                <p>No Mediclaim Info</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
+
     </div>
+  </div>
+  </div>
 
   </div>
-</div>
-
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
 
-      <!-- My Profile
+  <!-- My Profile
       <div class="col-md-4">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
@@ -441,8 +486,8 @@
         </div>
       </div> -->
 
-      <!-- Payroll & Slips -->
-      <!-- </style>
+  <!-- Payroll & Slips -->
+  <!-- </style>
       <div class="col-md-8">
         <div class="card mb-3">
           <div class="card-header">MY PAYROLL</div>
@@ -479,53 +524,57 @@
           </div>
         </div> -->
 
-        <!-- Let's Get Social -->
-        <div class="card">
-          <div class="card-header">LET’S GET SOCIAL!</div>
-          <div class="card-body">
-            <p><strong>Hey Team!</strong></p>
-            <p><em>We’re on social media. Are you following us yet? If not, now’s the perfect time!</em></p>
-            <p>Stay updated on all the cool things happening at TechNova from big wins to behind-the-scenes fun.</p>
-            <h4>Follow Us</h4>
-            <div style="display: flex; gap: 12px; align-items: center;">
-              <!-- LinkedIn -->
-              <a href="https://www.linkedin.com" target="_blank" style="width: 28px; height: 28px;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="100%" height="100%">
-                  <path fill="#0077B5"
-                    d="M100.28 448H7.4V148.9h92.88zm-46.44-340a53.9 53.9 0 1 1 53.9-53.9 53.9 53.9 0 0 1-53.9 53.9zM447.9 448h-92.4V302.4c0-34.7-12.5-58.4-43.8-58.4-23.9 0-38.2 16.1-44.5 31.6-2.3 5.5-2.8 13.1-2.8 20.8V448h-92.6s1.2-270.5 0-298.1h92.6v42.3c-.2.3-.5.7-.7 1h.7v-1c12.3-18.9 34.3-45.9 83.5-45.9 60.9 0 106.6 39.8 106.6 125.4V448z" />
-                </svg>
-              </a>
-
-              <!-- Instagram -->
-              <a href="https://www.instagram.com" target="_blank" style="width: 28px; height: 28px;">
-                <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-                  <defs>
-                    <linearGradient id="insta-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#feda75" />
-                      <stop offset="30%" stop-color="#fa7e1e" />
-                      <stop offset="60%" stop-color="#d62976" />
-                      <stop offset="100%" stop-color="#962fbf" />
-                    </linearGradient>
-                  </defs>
-                  <path fill="url(#insta-gradient)"
-                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9 0 63.6 51.3 114.9 114.9 114.9 63.6 0 114.9-51.3 114.9-114.9 0-63.6-51.3-114.9-114.9-114.9zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7 0-41.2 33.5-74.7 74.7-74.7 41.2 0 74.7 33.5 74.7 74.7 0 41.2-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9 0-14.9 12-26.9 26.9-26.9 14.9 0 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.7-9.9-67.2-36.3-92.6S361.7 8.6 326 6.9c-35.7-1.7-143.2-1.7-178.9 0-35.7 1.7-67.2 9.9-92.6 36.3S8.6 150.3 6.9 186c-1.7 35.7-1.7 143.2 0 178.9 1.7 35.7 9.9 67.2 36.3 92.6s56.9 34.6 92.6 36.3c35.7 1.7 143.2 1.7 178.9 0 35.7-1.7 67.2-9.9 92.6-36.3s34.6-56.9 36.3-92.6c1.7-35.7 1.7-143.2 0-178.9zm-48.1 218c-7.8 19.6-22.9 34.7-42.5 42.5-29.4 11.7-99.2 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.5-42.5-11.7-29.4-9-99.2-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.5-42.5 29.4-11.7 99.2-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.5 42.5 11.7 29.4 9 99.2 9 132.1s2.7 102.7-9 132.1z" />
-                </svg>
-              </a>
-
-              <!-- Twitter -->
-              <a href="https://www.twitter.com" target="_blank" style="width: 28px; height: 28px;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-                  <path fill="#1DA1F2"
-                    d="M459.4 151.7c.3 4.1.3 8.2.3 12.4 0 126.1-95.9 271.6-271.6 271.6-54 0-104.4-15.8-146.7-42.7 7.6.9 15.1 1.2 23 .1 44.8-5.3 85.7-27.3 116.3-59.7-41.9-.8-77.3-28.5-89.4-66.7 5.9.9 11.9 1.5 18.2 1.5 8.7 0 17.2-1.2 25.2-3.3-43.7-8.7-76.5-47.3-76.5-93.5v-1.2c12.9 7.2 27.8 11.5 43.6 12-25.9-17.3-43-46.7-43-80.1 0-17.6 4.8-34.1 13.2-48.2 48.1 59.2 119.8 98.2 200.7 102.4-1.6-7-2.4-14.3-2.4-21.8 0-52.6 42.6-95.2 95.2-95.2 27.4 0 52.1 11.5 69.4 30 21.7-4.3 42-12.2 60.4-23.2-7.1 22.3-22.3 41-42.1 52.8 19.2-2.2 37.3-7.4 54.3-15-12.6 19.2-28.3 36.3-46.6 49.9z" />
-                </svg>
-              </a>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
+  <!-- Let's Get Social -->
+ <div class="row my-4 ">
+  <div class="col-12">
+    <div class="card shadow-sm" style="background-color: #f8f9fa; max-width: 1400px;">
+      <div class="card-header text-center fw-bold bg-dark text-white">
+        LET’S GET SOCIAL!
     </div>
+    <div class="card-body">
+      <p><strong>Hey Team!</strong></p>
+      <p><em>We’re on social media. Are you following us yet? If not, now’s the perfect time!</em></p>
+      <p>Stay updated on all the cool things happening at TechNova from big wins to behind-the-scenes fun.</p>
+      <h4>Follow Us</h4>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com" target="_blank" style="width: 28px; height: 28px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="100%" height="100%">
+            <path fill="#0077B5"
+              d="M100.28 448H7.4V148.9h92.88zm-46.44-340a53.9 53.9 0 1 1 53.9-53.9 53.9 53.9 0 0 1-53.9 53.9zM447.9 448h-92.4V302.4c0-34.7-12.5-58.4-43.8-58.4-23.9 0-38.2 16.1-44.5 31.6-2.3 5.5-2.8 13.1-2.8 20.8V448h-92.6s1.2-270.5 0-298.1h92.6v42.3c-.2.3-.5.7-.7 1h.7v-1c12.3-18.9 34.3-45.9 83.5-45.9 60.9 0 106.6 39.8 106.6 125.4V448z" />
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com" target="_blank" style="width: 28px; height: 28px;">
+          <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+              <linearGradient id="insta-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#feda75" />
+                <stop offset="30%" stop-color="#fa7e1e" />
+                <stop offset="60%" stop-color="#d62976" />
+                <stop offset="100%" stop-color="#962fbf" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#insta-gradient)"
+              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9 0 63.6 51.3 114.9 114.9 114.9 63.6 0 114.9-51.3 114.9-114.9 0-63.6-51.3-114.9-114.9-114.9zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7 0-41.2 33.5-74.7 74.7-74.7 41.2 0 74.7 33.5 74.7 74.7 0 41.2-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9 0-14.9 12-26.9 26.9-26.9 14.9 0 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.7-9.9-67.2-36.3-92.6S361.7 8.6 326 6.9c-35.7-1.7-143.2-1.7-178.9 0-35.7 1.7-67.2 9.9-92.6 36.3S8.6 150.3 6.9 186c-1.7 35.7-1.7 143.2 0 178.9 1.7 35.7 9.9 67.2 36.3 92.6s56.9 34.6 92.6 36.3c35.7 1.7 143.2 1.7 178.9 0 35.7-1.7 67.2-9.9 92.6-36.3s34.6-56.9 36.3-92.6c1.7-35.7 1.7-143.2 0-178.9zm-48.1 218c-7.8 19.6-22.9 34.7-42.5 42.5-29.4 11.7-99.2 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.5-42.5-11.7-29.4-9-99.2-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.5-42.5 29.4-11.7 99.2-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.5 42.5 11.7 29.4 9 99.2 9 132.1s2.7 102.7-9 132.1z" />
+          </svg>
+        </a>
+
+        <!-- Twitter -->
+        <a href="https://www.twitter.com" target="_blank" style="width: 28px; height: 28px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+            <path fill="#1DA1F2"
+              d="M459.4 151.7c.3 4.1.3 8.2.3 12.4 0 126.1-95.9 271.6-271.6 271.6-54 0-104.4-15.8-146.7-42.7 7.6.9 15.1 1.2 23 .1 44.8-5.3 85.7-27.3 116.3-59.7-41.9-.8-77.3-28.5-89.4-66.7 5.9.9 11.9 1.5 18.2 1.5 8.7 0 17.2-1.2 25.2-3.3-43.7-8.7-76.5-47.3-76.5-93.5v-1.2c12.9 7.2 27.8 11.5 43.6 12-25.9-17.3-43-46.7-43-80.1 0-17.6 4.8-34.1 13.2-48.2 48.1 59.2 119.8 98.2 200.7 102.4-1.6-7-2.4-14.3-2.4-21.8 0-52.6 42.6-95.2 95.2-95.2 27.4 0 52.1 11.5 69.4 30 21.7-4.3 42-12.2 60.4-23.2-7.1 22.3-22.3 41-42.1 52.8 19.2-2.2 37.3-7.4 54.3-15-12.6 19.2-28.3 36.3-46.6 49.9z" />
+          </svg>
+        </a>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+  </div>
   </div>
   {% endblock %}
 
