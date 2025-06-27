@@ -518,4 +518,6 @@ def leave_history_view(request):
 #     return render(request, 'dashboard/index_inner.html', {'employee': employee})
 
 
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
 

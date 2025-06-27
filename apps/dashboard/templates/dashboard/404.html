@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Not Found</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .error-box {
+      padding: 40px;
+      border: 2px dashed #dc3545;
+      border-radius: 10px;
+      background-color: #fff3f3;
+    }
+    h1 {
+      font-size: 60px;
+      margin-bottom: 10px;
+      color: #dc3545;
+    }
+    p {
+      font-size: 20px;
+      color: #333;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007bff;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-box">
+    <h1>404</h1>
+    <p>Oops! The page you're looking for does not exist.</p>
+    <a href="{% url 'index_inner' %}">Back to Home</a>
+  </div>
+</body>
+</html>

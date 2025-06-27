@@ -343,9 +343,10 @@
                 {% for slip in salary_slips %}
                 <p class="mb-1">{{ slip.month }} {{ slip.year }}</p>
                 <div class="btn-group mb-2">
-                  <a href="{{ slip.pdf_file.url }}" target="_blank" class="btn btn-light btn-sm">View</a>
-                  <a href="{{ slip.pdf_file.url }}" download class="btn btn-dark btn-sm">Download</a>
-                </div><br>
+  <a href="{{ slip.pdf_file.url }}" target="_blank" class="btn btn-light btn-sm me-2" style="padding: 0.4rem 0.75rem; font-size: 0.9rem;">View</a>
+  <a href="{{ slip.pdf_file.url }}" download class="btn btn-dark btn-sm">Download</a>
+</div>
+
                 {% endfor %}
                 {% else %}
                 <p>No slips available</p>
@@ -361,7 +362,7 @@
                 <h5 class="card-title">Mediclaim Details</h5>
                 {% if family_members %}
                 <table class="table table-sm table-border-dark mediclaim-table">
-                  ">
+                  
                   <thead>
                     <tr>
                       <th>Name</th>
