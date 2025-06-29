@@ -1,4 +1,4 @@
-{% extends 'dashboard/base.html' %}
+<!-- {% extends 'dashboard/base.html' %}
 
 
 {% block body %}
@@ -65,4 +65,31 @@
 
 </html>
 
-{% endblock %}
+{% endblock %} -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Salary Slip - {{ month }} {{ year }}</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    h2 { text-align: center; }
+    table { width: 100%; margin-top: 20px; }
+    td { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Salary Slip - {{ month }} {{ year }}</h2>
+  <p><strong>Name:</strong> {{ employee.first_name }} {{ employee.last_name }}</p>
+  <p><strong>Email:</strong> {{ employee.pvt_email }}</p>
+  <p><strong>Mobile:</strong> {{ employee.mobile }}</p>
+
+  <table border="1">
+    <tr><td>Basic Salary</td><td>₹{{ salary.basic_salary }}</td></tr>
+    <tr><td>HRA</td><td>₹{{ salary.hra }}</td></tr>
+    <tr><td>Tax</td><td>₹{{ salary.tax }}</td></tr>
+    <tr><td><strong>Net Salary</strong></td><td><strong>₹{{ salary.net_salary }}</strong></td></tr>
+  </table>
+</body>
+</html>

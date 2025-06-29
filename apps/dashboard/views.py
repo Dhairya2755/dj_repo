@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .utils import generate_salary_pdf
+# from .utils import generate_salary_pdf
 from datetime import datetime  , timedelta 
 from .forms import *
 import re
@@ -12,6 +12,8 @@ from xhtml2pdf import pisa
 from django.core.files.base import ContentFile
 from io import BytesIO
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
 
 
 # Validate strong password
@@ -125,15 +127,15 @@ def logout(request):
 #     return render(request, 'dashboard/edit_profile.html', {'form': form, 'employee': employee})
 
 # My salary slips view (static mock)
-def profile_view(request):
-    employee = Employee.objects.first()  # For demo; you should use session ID
-    salary_slips = [
-        {"month": "May", "year": 2025, "download_url": "#"},
-        {"month": "Apr", "year": 2025, "download_url": "#"},
-        {"month": "Mar", "year": 2025, "download_url": "#"},
-        {"month": "Feb", "year": 2025, "download_url": "#"},
-    ]
-    return render(request, 'dashboard/profile.html', {'employee': employee, 'salary_slips': salary_slips})
+# def profile_view(request):
+#     employee = Employee.objects.first()  # For demo; you should use session ID
+#     salary_slips = [
+#         {"month": "May", "year": 2025, "download_url": "#"},
+#         {"month": "Apr", "year": 2025, "download_url": "#"},
+#         {"month": "Mar", "year": 2025, "download_url": "#"},
+#         {"month": "Feb", "year": 2025, "download_url": "#"},
+#     ]
+#     return render(request, 'dashboard/profile.html', {'employee': employee, 'salary_slips': salary_slips})
 
 # update info
 def edit_profile(request):
@@ -403,7 +405,8 @@ def generate_salary_slip_pdf(request):
     except Employee.DoesNotExist:
         return HttpResponse("Employee does not exist.")
 
-    salary, created = Salary.objects.get_or_create(
+    # Get or create salary
+    salary, _ = Salary.objects.get_or_create(
         employee=employee,
         defaults={
             'basic_salary': 30000,
@@ -411,16 +414,17 @@ def generate_salary_slip_pdf(request):
             'tax': 2000,
         }
     )
-    if created:
-        salary.save()
 
-    
-    month = datetime.now().strftime('%B')
-    year = datetime.now().year
+    # Current month/year
+    current_date = now()
+    month = current_date.strftime('%B')
+    year = current_date.year
 
+    # Check if slip already exists
     if SalarySlip.objects.filter(employee=employee, month=month, year=year).exists():
         return HttpResponse("Salary slip already generated for this month.")
 
+    # Generate PDF content
     context = {
         'employee': employee,
         'salary': salary,
@@ -433,16 +437,20 @@ def generate_salary_slip_pdf(request):
 
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
-    if not pdf.err:
-        slip = SalarySlip(
-            employee=employee,
-            month=month,
-            year=year
-        )
-        slip.pdf_file.save(f"{employee.employee_id}_{month}_{year}.pdf", ContentFile(result.getvalue()))
-        return HttpResponse("Salary slip generated successfully.")
-    return HttpResponse("PDF generation failed.")
+    if pdf.err:
+        return HttpResponse("PDF generation failed.")
 
+    # Save the SalarySlip record
+    slip = SalarySlip(
+        employee=employee,
+        month=month,
+        year=year
+    )
+    filename = f"{employee.employee_id}_{month}_{year}.pdf"
+    slip.pdf_file.save(filename, ContentFile(result.getvalue()))
+    slip.save()
+
+    return HttpResponse("Salary slip generated successfully.")
 #bday countdown
 def dashboard_highlights(request):
     today = date.today()
